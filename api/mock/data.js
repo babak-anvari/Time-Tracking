@@ -1,42 +1,38 @@
-let weekMock = {
-    weekNumber: Math.random(),
-    userId: '5ea13cf6880b2050c85aefcb',
-    status: 'submitted',
-    hours: [
+let users = [
+    {
+        id: "u1",
+        firstName: "Tim",
+        lastName: "Smith",
+        email: "tim@getMaxListeners.com",
+        currentPosition: "Mechanical Engineer",
+        employmentDate: "11/17/2020"
+    }
+];
+
+let projects = [];
+
+let timesheet = {
+    userId: 22,
+    data: [
         {
-            // date: Date,
-            // projectNumber: {
-            //     type: mongoose.Schema.Types.ObjectId,
-            //     ref: "project"
-            // },
-            activity: 'String',
-            category: 'String',
-            transactionText: 'String',
-            hour: 34,
+            date: "2017-12-31T16:00:00.000-08:00",
+            hour: 12,
+            projectId: "p1",
+            activity: "A-200",
+            category: "Z-ENG",
+            transactionText: "DISCHARGE CONVEYOR"
         }
-    ]
-}
-
-let userMock1 = {
-    // email: Math.random().toString(36).substring(7),
-    email: 'babak',
-    firstName: 'Babak',
-    lastName: 'Anvari',
-    currentPosition: 'Mechanical Engineer',
-    employmentDate: '04/22/2020',
-}
-
-let userMock2 = {
-    _id: '5ea3a86acbf03c6094789d69',
-    email: 'babak',
-    firstName: 'Babakkk',
-    lastName: 'pesarrr',
-    currentPosition: 'Engineerrr',
-    employmentDate: '',
-}
+    ],
+    weekEnd: 11 / 17 / 2020,
+    weekEnding: {
+        year: 2020,
+        month: 8,
+        day: 12
+    },
+};
 
 module.exports = {
-    weekMock,
-    userMock1,
-    userMock2
+    users,
+    projects,
+    timesheet
 };
