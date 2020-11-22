@@ -1,13 +1,13 @@
 import axios from 'axios';
+import { handleResponse, handleError } from './apiUtils'
 
 const baseUrl = process.env.API_URL + '/timesheet'
 
-
-export const getTimesheet = async () => {
-    return (await axios({
+export const getTimesheet = () => {
+    return axios({
         method: 'get',
         url: baseUrl,
-        //add header here later
-        //add params here later
-    })).data;
+    })
+        .then(handleResponse)
+        .catch(handleError)
 }
