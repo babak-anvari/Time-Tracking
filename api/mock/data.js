@@ -21,6 +21,14 @@ let timesheet = {
             activity: "A-200",
             category: "Z-ENG",
             transactionText: "DISCHARGE CONVEYOR"
+        },
+        {
+            date: "2017-12-31T16:00:00.000-08:00",
+            hour: 14,
+            projectId: "p2",
+            activity: "A-200",
+            category: "Z-ENG",
+            transactionText: "Take up"
         }
     ],
     weekEnd: 11 / 17 / 2020,

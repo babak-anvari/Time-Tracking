@@ -8,7 +8,7 @@ export const getTimesheet = () => {
         method: 'get',
         url: baseUrl,
         params: {
-            weekEnd: '2020-09-30',
+            weekEnd: Date.parse('2020-09-26'),
             userId: '5f5c080d01b43d9958fe2d54'
         }
     })
