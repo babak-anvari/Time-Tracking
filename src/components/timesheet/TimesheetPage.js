@@ -12,15 +12,27 @@ function TimesheetPage({ timesheet, loadTimesheet }) {
         setTasks(addRowNumber(timesheet.data));
     }, [timesheet])
 
-    const deleteTask = (number) => {
-        setTasks(tasks.filter((task) => task.number !== number));
+    const handleChange = (e) => {
+        let { name, value, id } = e.target;
+        setTasks((tasks.map((task) => {
+            return task.number == id ? { ...task, [name]: value } : task;
+        })));
+    }
+
+    const deleteTask = (taskNumber) => {
+        setTasks(tasks.filter((task) => task.number !== taskNumber));
     }
 
     return (
         <div>
             <p>Timesheet under development</p><br />
             <p>{timesheet.userId}</p>
-            <TimesheetTable tasks={(tasks)} loadTable={loadTimesheet} deleteRow={deleteTask} />
+            <TimesheetTable
+                tasks={(tasks)}
+                loadTable={loadTimesheet}
+                deleteRow={deleteTask}
+                handleChange={handleChange}
+            />
         </div>
     )
 }
