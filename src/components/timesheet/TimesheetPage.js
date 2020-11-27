@@ -12,11 +12,15 @@ function TimesheetPage({ timesheet, loadTimesheet }) {
         setTasks(addRowNumber(timesheet.data));
     }, [timesheet])
 
+    const deleteTask = (number) => {
+        setTasks(tasks.filter((task) => task.number !== number));
+    }
+
     return (
         <div>
             <p>Timesheet under development</p><br />
             <p>{timesheet.userId}</p>
-            <TimesheetTable tasks={(tasks)} loadTimesheet={loadTimesheet} />
+            <TimesheetTable tasks={(tasks)} loadTable={loadTimesheet} deleteRow={deleteTask} />
         </div>
     )
 }

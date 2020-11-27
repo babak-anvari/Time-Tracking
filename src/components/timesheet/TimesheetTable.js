@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const TimesheetTable = ({ tasks, loadTimesheet }) => (
+const TimesheetTable = ({ tasks, loadTable, deleteRow }) => (
     <>
         {/* debugger; */}
-        <button onClick={loadTimesheet}>Load Timesheet</button>
+        <button onClick={loadTable}>Load Timesheet</button>
         <table className="table">
             <thead>
                 <tr>
@@ -25,7 +25,7 @@ const TimesheetTable = ({ tasks, loadTimesheet }) => (
                             <td>{task.category}</td>
                             <td>{task.transactionText}</td> */}
                         <td>{task.hour}</td>
-                        <td><button>Delete</button></td>
+                        <td><button onClick={() => deleteRow(task.number)}>Delete</button></td>
                     </tr>
                 ))}
             </tbody>
@@ -35,7 +35,8 @@ const TimesheetTable = ({ tasks, loadTimesheet }) => (
 
 TimesheetTable.propTypes = {
     tasks: PropTypes.array.isRequired,
-    loadTimesheet: PropTypes.func.isRequired
+    loadTable: PropTypes.func.isRequired,
+    deleteRow: PropTypes.func.isRequired
 };
 
 export default TimesheetTable;
