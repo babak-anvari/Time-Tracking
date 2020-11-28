@@ -15,7 +15,7 @@ let timesheet = {
     userId: 22,
     data: [
         {
-            date: "2017-12-31T16:00:00.000-08:00",
+            date: 2020 - 11 - 26,
             hour: 12,
             projectId: "p1",
             activity: "A-200",
@@ -23,7 +23,7 @@ let timesheet = {
             transactionText: "DISCHARGE CONVEYOR"
         },
         {
-            date: "2017-12-31T16:00:00.000-08:00",
+            date: 2020 - 11 - 26,
             hour: 14,
             projectId: "p2",
             activity: "A-200",
@@ -31,7 +31,7 @@ let timesheet = {
             transactionText: "Take up"
         },
         {
-            date: "2017-12-31T16:00:00.000-08:00",
+            date: 2020 - 11 - 26,
             hour: 30,
             projectId: "p3",
             activity: "A-200",

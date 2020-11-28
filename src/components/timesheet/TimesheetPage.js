@@ -14,6 +14,7 @@ function TimesheetPage({ timesheet, loadTimesheet }) {
     }, [timesheet])
 
     const handleChange = (id, e) => {
+        console.log(e.target);
         let { name, value } = e.target;
         setTasks((tasks.map((task) => {
             return task.id == id ? { ...task, [name]: value } : task;

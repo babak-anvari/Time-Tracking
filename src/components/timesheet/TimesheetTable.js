@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const TimesheetTable = ({ tasks, loadTable, addRow, deleteRow, handleChange }) => (
     <>
-        {/* debugger; */}
         <button onClick={loadTable}>Load Timesheet</button>
         <table className="table">
             <thead>
@@ -16,7 +17,15 @@ const TimesheetTable = ({ tasks, loadTable, addRow, deleteRow, handleChange }) =
             <tbody>
                 {tasks.map(task => (
                     <tr key={task.id} >
-                        <td><input name='date' value={task.date} onChange={handleChange} /></td>
+                        <td><DatePicker selected={task.date} closeOnScroll={true}
+                            onChange={(date) => handleChange(
+                                task.id,
+                                {
+                                    target:
+                                        { name: 'date', value: date }
+                                })
+                            }
+                        /></td>
                         <td><input name='projectId' value={task.projectId} onChange={(e) => handleChange(task.id, e)} /></td>
                         <td><input name='hour' value={task.hour} onChange={(e) => handleChange(task.id, e)}></input></td>
                         <td><button onClick={() => deleteRow(task.rowNumber)}>Delete</button></td>
