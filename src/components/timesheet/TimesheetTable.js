@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const TimesheetTable = ({ tasks, loadTable, deleteRow, handleChange }) => (
+const TimesheetTable = ({ tasks, loadTable, addRow, deleteRow, handleChange }) => (
     <>
         {/* debugger; */}
         <button onClick={loadTable}>Load Timesheet</button>
@@ -10,32 +10,28 @@ const TimesheetTable = ({ tasks, loadTable, deleteRow, handleChange }) => (
                 <tr>
                     <th>Date</th>
                     <th>Project</th>
-                    {/* <th>Activity</th>
-                        <th>Category</th>
-                        <th>Transaction Text</th> */}
-                    <th>Hours</th>
+                    <th>Hour</th>
                 </tr>
             </thead>
             <tbody>
                 {tasks.map(task => (
-                    <tr key={task.number} >
-                        <td><input id={task.number} name='date' value={task.date} onChange={handleChange} /></td>
-                        <td><input id={task.number} name='projectId' value={task.projectId} onChange={handleChange} /></td>
-                        {/* <td>{task.activity}</td>
-                            <td>{task.category}</td>
-                            <td>{task.transactionText}</td> */}
-                        <td>{task.hour}</td>
-                        <td><button onClick={() => deleteRow(task.number)}>Delete</button></td>
+                    <tr key={task.id} >
+                        <td><input name='date' value={task.date} onChange={handleChange} /></td>
+                        <td><input name='projectId' value={task.projectId} onChange={(e) => handleChange(task.id, e)} /></td>
+                        <td><input name='hour' value={task.hour} onChange={(e) => handleChange(task.id, e)}></input></td>
+                        <td><button onClick={() => deleteRow(task.rowNumber)}>Delete</button></td>
                     </tr>
                 ))}
             </tbody>
         </table >
+        <button onClick={addRow}>Add</button>
     </>
 )
 
 TimesheetTable.propTypes = {
     tasks: PropTypes.array.isRequired,
     loadTable: PropTypes.func.isRequired,
+    addRow: PropTypes.func.isRequired,
     deleteRow: PropTypes.func.isRequired,
     handleChange: PropTypes.func.isRequired
 };
