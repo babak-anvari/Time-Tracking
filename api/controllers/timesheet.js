@@ -6,7 +6,7 @@ import * as services from '../services/timesheet';
 import * as projectServices from '../services/project';
 
 //Find timesheet
-router.get('/find', ash(async (req, res, next) => {
+router.get('/', ash(async (req, res, next) => {
     let projects = await projectServices.findAll();
     let timesheet = await services.find(req.query.weekEnd, req.query.userId);
     if (timesheet) {

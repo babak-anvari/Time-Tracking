@@ -4,14 +4,18 @@ import { HomePage } from '../components/home/HomePage';
 import { AboutPage } from '../components/about/AboutPage';
 import { Header } from './common/Header';
 import PageNotFound from './PageNotFound';
+import TimesheetPage from './timesheet/TimesheetPage';
 
-export const App = () => (
+const App = () => (
     <div className='container-fluid'>
         <Header />
         <Switch>
             <Route exact path='/' component={HomePage} />
             <Route path='/about' component={AboutPage} />
+            <Route path='/timesheet' component={TimesheetPage} />
             <Route component={PageNotFound} />
         </Switch>
     </div>
 );
+
+export default App;
