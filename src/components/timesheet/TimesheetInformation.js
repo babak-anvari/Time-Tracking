@@ -10,6 +10,7 @@ const TimesheetInformation = ({ date, setDate, getTimesheet }) => {
             < DatePicker
                 selected={date}
                 closeOnScroll={true}
+                showWeekNumbers
                 onChange={selectedDate => setDate(selectedDate)}
             /><br /><br />
             <button type='submit'>Get Timesheet</button>

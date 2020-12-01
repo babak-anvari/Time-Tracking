@@ -5,11 +5,14 @@ import { loadTimesheet } from '../../redux/actions/timesheetActions';
 import PropTypes from "prop-types";
 import TimesheetTable from './TimesheetTable';
 import TimesheetInformation from './TimesheetInformation';
+import validateTable from '../../utils/validateTable';
+import TimesheetErrors from './TimesheetErrors';
 
 function TimesheetPage({ timesheet, loadTimesheet }) {
 
-    const [tasks, setTasks] = useState(timesheet.data);
-    const [date, setDate] = useState(new Date());
+    let [tasks, setTasks] = useState(timesheet.data);
+    let [date, setDate] = useState(new Date());
+    let [errors, setErrors] = useState([]);
 
     useEffect(() => {
         setTasks(addRowNumber(timesheet.data));
@@ -37,6 +40,16 @@ function TimesheetPage({ timesheet, loadTimesheet }) {
         loadTimesheet();
     }
 
+    const saveTimesheet = (e) => {
+        e.preventDefault();
+        let tableError = validateTable(tasks)
+        if (tableError == null) {
+            setErrors([]);
+            console.log('you can save the timesheet')
+        }
+        else { setErrors(tableError) }
+    }
+
     return (
         <div>
             <TimesheetInformation
@@ -49,7 +62,13 @@ function TimesheetPage({ timesheet, loadTimesheet }) {
                     tasks={(tasks)}
                     addRow={addTask}
                     deleteRow={deleteTask}
+                    saveTable={saveTimesheet}
                     handleChange={handleChange}
+                />
+            }<br /><br /><br />
+            {errors.length !== 0 &&
+                <TimesheetErrors
+                    errors={errors}
                 />
             }
         </div>
