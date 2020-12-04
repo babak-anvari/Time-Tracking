@@ -25,7 +25,7 @@ function TimesheetPage({ timesheet, loadTimesheet }) {
 
     const addTask = () => {
         setTasks(addRowNumber([...tasks, {
-            date: new Date(),
+            date: new Date().toISOString(),
             projectId: '',
             hour: 0
         }]));
