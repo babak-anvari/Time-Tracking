@@ -17,3 +17,16 @@ export function loadTimesheet() {
             })
     };
 }
+
+export function saveTimesheet() {
+    return function (dispatch) {
+        return timesheetApi
+            .saveTimesheet()
+            .then((timesheet) => {
+                dispatch(loadTimesheetSuccess(timesheet));
+            })
+            .catch(error => {
+                throw error;
+            })
+    };
+}

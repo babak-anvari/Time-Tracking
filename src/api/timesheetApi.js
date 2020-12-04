@@ -15,3 +15,13 @@ export const getTimesheet = () => {
         .then(handleResponse)
         .catch(handleError)
 }
+
+export const saveTimesheet = (timesheet) => {
+    return axios({
+        method: timesheet.id ? 'put' : 'post',
+        url: baseUrl,
+        data: timesheet
+    })
+        .then(handleResponse)
+        .catch(handleError)
+}
