@@ -5,6 +5,8 @@ export default function timesheetReducer(state = initialState.timesheet, action)
     switch (action.type) {
         case types.LOAD_TIMESHEET_SUCCESS:
             return action.timesheet;
+        case types.SAVE_TIMESHEET_SUCCESS:
+            return action.timesheet;
         default:
             return state;
     }
