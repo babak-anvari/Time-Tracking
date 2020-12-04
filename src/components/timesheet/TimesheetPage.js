@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { v4 as uuid } from 'uuid';
-import { loadTimesheet } from '../../redux/actions/timesheetActions';
+import { loadTimesheet, saveTimesheet } from '../../redux/actions/timesheetActions';
 import PropTypes from "prop-types";
 import TimesheetTable from './TimesheetTable';
 import TimesheetInformation from './TimesheetInformation';
 import validateTable from '../../utils/validateTable';
 import TimesheetErrors from './TimesheetErrors';
 
-function TimesheetPage({ timesheet, loadTimesheet }) {
+function TimesheetPage({ timesheet, loadTimesheet, saveTimesheet }) {
 
-    let [tasks, setTasks] = useState(timesheet.data);
+    let [tasks, setTasks] = useState(timesheet.tasks);
     let [date, setDate] = useState(new Date());
     let [errors, setErrors] = useState([]);
 
     useEffect(() => {
-        setTasks(addRowNumber(timesheet.data));
+        setTasks(addRowNumber(timesheet.tasks));
     }, [timesheet])
 
     const handleChange = (id, e) => {
         let { name, value } = e.target;
+        value = (name === 'hour') ? parseInt(value, 10) : value;
         setTasks(tasks.map(task => task.id == id ? { ...task, [name]: value } : task));
     }
 
@@ -40,12 +41,13 @@ function TimesheetPage({ timesheet, loadTimesheet }) {
         loadTimesheet();
     }
 
-    const saveTimesheet = (e) => {
+    const save = (e) => {
         e.preventDefault();
         let tableError = validateTable(tasks)
         if (tableError == null) {
             setErrors([]);
-            console.log('you can save the timesheet')
+            // timesheet.tasks = tasks;
+            saveTimesheet({ ...timesheet, tasks });
         }
         else { setErrors(tableError) }
     }
@@ -62,7 +64,7 @@ function TimesheetPage({ timesheet, loadTimesheet }) {
                     tasks={(tasks)}
                     addRow={addTask}
                     deleteRow={deleteTask}
-                    saveTable={saveTimesheet}
+                    saveTable={save}
                     handleChange={handleChange}
                 />
             }<br /><br /><br />
@@ -77,7 +79,8 @@ function TimesheetPage({ timesheet, loadTimesheet }) {
 
 TimesheetPage.propTypes = {
     timesheet: PropTypes.object.isRequired,
-    loadTimesheet: PropTypes.func.isRequired
+    loadTimesheet: PropTypes.func.isRequired,
+    saveTimesheet: PropTypes.func.isRequired
 };
 
 //add row number and row unique id
@@ -94,7 +97,7 @@ function mapStateToProps(state) {
     };
 }
 
-const mapDispatchToProps = { loadTimesheet };
+const mapDispatchToProps = { loadTimesheet, saveTimesheet };
 
 export default connect(
     mapStateToProps,

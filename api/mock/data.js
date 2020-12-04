@@ -13,7 +13,7 @@ let projects = [];
 
 let timesheet = {
     userId: 22,
-    data: [
+    tasks: [
         {
             date: new Date('2020,2,3'),
             hour: 12,
@@ -39,7 +39,7 @@ let timesheet = {
             transactionText: "Take up"
         }
     ],
-    weekEnd: 11 / 17 / 2020,
+    weekEnd: new Date('2020,12,12'),
     weekEnding: {
         year: 2020,
         month: 8,

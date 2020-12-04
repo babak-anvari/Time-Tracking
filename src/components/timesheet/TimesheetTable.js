@@ -33,6 +33,8 @@ const TimesheetTable = ({ tasks, addRow, deleteRow, saveTable, handleChange }) =
                             <td>
                                 <input
                                     name='hour'
+                                    // type='text'
+                                    // pattern='[0-9]*'
                                     value={task.hour} onChange={(e) => handleChange(task.id, e)}
                                     autoComplete='off'
                                     style={{ width: "50px" }}
