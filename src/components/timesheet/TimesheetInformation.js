@@ -11,6 +11,7 @@ const TimesheetInformation = ({ date, setDate, getTimesheet }) => {
                 selected={date}
                 closeOnScroll={true}
                 showWeekNumbers
+                filterDate={date => (date.getDay() == 6)}
                 onChange={selectedDate => setDate(selectedDate)}
             /><br /><br />
             <button type='submit'>Get Timesheet</button>

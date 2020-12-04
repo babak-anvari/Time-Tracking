@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import parseISO from 'date-fns/parseISO';
 
 const TimesheetTable = ({ tasks, addRow, deleteRow, saveTable, handleChange }) => (
     <>
@@ -21,10 +22,10 @@ const TimesheetTable = ({ tasks, addRow, deleteRow, saveTable, handleChange }) =
                             <td>{task.rowNumber}</td>
                             <td>
                                 <DatePicker
-                                    selected={task.date}
+                                    selected={parseISO(task.date)}
                                     closeOnScroll={true}
                                     onChange={(date) => handleChange(
-                                        task.id, { target: { name: 'date', value: date } }
+                                        task.id, { target: { name: 'date', value: date.toISOString() } }
                                     )}
                                 />
                             </td>
