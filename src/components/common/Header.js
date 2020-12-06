@@ -9,6 +9,8 @@ export const Header = () => {
             {" | "}
             <NavLink to="/about" activeStyle={activeStyle}>About</NavLink>
             {" | "}
+            <NavLink to="/user" activeStyle={activeStyle}>User</NavLink>
+            {" | "}
             <NavLink to="/timesheet" activeStyle={activeStyle}>Timesheet</NavLink>
             {" | "}
         </nav>
