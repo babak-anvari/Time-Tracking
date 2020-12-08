@@ -6,6 +6,7 @@ import Header from './common/Header';
 import PageNotFound from './PageNotFound';
 import TimesheetPage from './timesheet/TimesheetPage';
 import UserPage from './user/UserPage';
+import ProjectPage from './project/ProjectPage';
 
 const App = () => (
     <div className='container-fluid'>
@@ -13,8 +14,9 @@ const App = () => (
         <Switch>
             <Route exact path='/' component={HomePage} />
             <Route path='/about' component={AboutPage} />
-            <Route path='/timesheet' component={TimesheetPage} />
             <Route path='/user' component={UserPage} />
+            <Route path='/project' component={ProjectPage} />
+            <Route path='/timesheet' component={TimesheetPage} />
             <Route component={PageNotFound} />
         </Switch>
     </div>

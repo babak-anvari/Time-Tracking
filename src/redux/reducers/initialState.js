@@ -1,7 +1,7 @@
 export default {
     user: {},
     users: [],
-    projects: [{ name: 'anvari' }],
+    projects: [],
     timesheet: {
         tasks: []
     }

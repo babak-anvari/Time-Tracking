@@ -7,7 +7,6 @@ import UserProfile from './UserProfile';
 
 const UserPage = ({ currentUser, userLogin }) => {
     let [user, setUser] = useState({});
-    console.log(currentUser);
 
     const handleChange = (e) => {
         let { name, value } = e.target;
@@ -19,8 +18,6 @@ const UserPage = ({ currentUser, userLogin }) => {
         if (!user.email || !user.password) alert('Enter email and passworddd');
         else {
             try {
-                // user = await login(user);
-                // if (user !== null) setUser(user);
                 userLogin(user);
 
             }
