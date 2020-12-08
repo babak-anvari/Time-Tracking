@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { connect } from 'react-redux';
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
-import { userRenewLogin } from '../../redux/actions/userActions'
+import { userRenewLogin, userSignOut } from '../../redux/actions/userActions'
 
-const Header = ({ currentUser, userRenewLogin }) => {
+const Header = ({ currentUser, userRenewLogin, userSignOut }) => {
     useEffect(() => {
         let user = JSON.parse(localStorage.getItem('user'));
         user ? userRenewLogin(user) : console.log('not logged in');
@@ -24,6 +24,8 @@ const Header = ({ currentUser, userRenewLogin }) => {
                     {" | "}
                     <NavLink to="/timesheet" activeStyle={activeStyle}>Timesheet</NavLink>
                     {" | "}
+                    <NavLink to="/" onClick={userSignOut}>Sign out</NavLink>
+                    {" | "}
                 </>
             }
         </nav>
@@ -31,8 +33,9 @@ const Header = ({ currentUser, userRenewLogin }) => {
 };
 
 Header.propTypes = {
-    userRenewLogin: PropTypes.func.isRequired,
     currentUser: PropTypes.object.isRequired,
+    userRenewLogin: PropTypes.func.isRequired,
+    userSignOut: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
@@ -41,7 +44,7 @@ function mapStateToProps(state) {
     };
 }
 
-const mapDispatchToProps = { userRenewLogin };
+const mapDispatchToProps = { userRenewLogin, userSignOut };
 
 export default connect(
     mapStateToProps,

@@ -9,6 +9,10 @@ export const userRenewLoginSuccess = (user) => {
     return { type: types.userRenewLoginSuccess, user }
 }
 
+export const userSignOutSuccess = (user) => {
+    return { type: types.userSignOutSuccess, user }
+}
+
 export function userLogin(user) {
     return function (dispatch) {
         return userApi
@@ -26,5 +30,12 @@ export function userLogin(user) {
 export function userRenewLogin(user) {
     return function (dispatch) {
         dispatch(userRenewLoginSuccess(user));
+    }
+}
+
+export function userSignOut() {
+    return function (dispatch) {
+        localStorage.removeItem("user");
+        dispatch(userSignOutSuccess());
     }
 }
