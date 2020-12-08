@@ -5,6 +5,10 @@ export const userLoginSuccess = (user) => {
     return { type: types.USER_LOGIN_SUCCESS, user }
 }
 
+export const userRenewLoginSuccess = (user) => {
+    return { type: types.userRenewLoginSuccess, user }
+}
+
 export function userLogin(user) {
     return function (dispatch) {
         return userApi
@@ -17,4 +21,10 @@ export function userLogin(user) {
                 throw error;
             })
     };
+}
+
+export function userRenewLogin(user) {
+    return function (dispatch) {
+        dispatch(userRenewLoginSuccess(user));
+    }
 }
