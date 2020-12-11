@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import parseISO from 'date-fns/parseISO';
+import ProjectInput from '../common/ProjectInput';
 
-const TimesheetTable = ({ tasks, addRow, deleteRow, saveTable, handleChange }) => (
+const TimesheetTable = ({ tasks, projectList, addRow, deleteRow, saveTable, handleChange }) => (
     <>
         <form onSubmit={saveTable}>
             <table className="table">
@@ -29,12 +30,10 @@ const TimesheetTable = ({ tasks, addRow, deleteRow, saveTable, handleChange }) =
                                     )}
                                 />
                             </td>
-                            <td><input name='projectId' value={task.projectId} onChange={(e) => handleChange(task.id, e)} autoComplete='off' /></td>
+                            <td><ProjectInput projectList={projectList} handleChange={handleChange} Id={task.id} /></td>
                             <td>
                                 <input
                                     name='hour'
-                                    // type='text'
-                                    // pattern='[0-9]*'
                                     value={task.hour} onChange={(e) => handleChange(task.id, e)}
                                     autoComplete='off'
                                     style={{ width: "50px" }}
@@ -54,6 +53,7 @@ const TimesheetTable = ({ tasks, addRow, deleteRow, saveTable, handleChange }) =
 
 TimesheetTable.propTypes = {
     tasks: PropTypes.array.isRequired,
+    projectList: PropTypes.array.isRequired,
     addRow: PropTypes.func.isRequired,
     deleteRow: PropTypes.func.isRequired,
     saveTable: PropTypes.func.isRequired,
