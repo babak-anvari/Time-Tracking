@@ -7,47 +7,46 @@ import ProjectInput from '../common/ProjectInput';
 
 const TimesheetTable = ({ tasks, projectList, addRow, deleteRow, saveTable, handleChange }) => (
     <>
-        <form onSubmit={saveTable}>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>Task Number</th>
-                        <th>Date</th>
-                        <th>Project</th>
-                        <th>Hour</th>
+        <table className="table">
+            <thead>
+                <tr>
+                    <th>Task Number</th>
+                    <th>Date</th>
+                    <th>Project</th>
+                    <th>Hour</th>
+                </tr>
+            </thead>
+            <tbody>
+                {tasks.map(task => (
+                    <tr key={task.id} >
+                        <td>{task.rowNumber}</td>
+                        <td>
+                            <DatePicker
+                                selected={parseISO(task.date)}
+                                closeOnScroll={true}
+                                onChange={(date) => handleChange(
+                                    task.id, { target: { name: 'date', value: date.toISOString() } }
+                                )}
+                            />
+                        </td>
+                        <td><ProjectInput projectList={projectList} Inputvalue={task.number} handleChange={handleChange} taskId={task.id} /></td>
+                        <td>
+                            <input
+                                name='hour'
+                                value={task.hour}
+                                onChange={(e) => handleChange(task.id, e)}
+                                autoComplete='off'
+                                style={{ width: "50px" }}
+                            >
+                            </input>
+                        </td>
+                        <td><button onClick={() => deleteRow(task.rowNumber)}>Delete</button></td>
                     </tr>
-                </thead>
-                <tbody>
-                    {tasks.map(task => (
-                        <tr key={task.id} >
-                            <td>{task.rowNumber}</td>
-                            <td>
-                                <DatePicker
-                                    selected={parseISO(task.date)}
-                                    closeOnScroll={true}
-                                    onChange={(date) => handleChange(
-                                        task.id, { target: { name: 'date', value: date.toISOString() } }
-                                    )}
-                                />
-                            </td>
-                            <td><ProjectInput projectList={projectList} handleChange={handleChange} Id={task.id} /></td>
-                            <td>
-                                <input
-                                    name='hour'
-                                    value={task.hour} onChange={(e) => handleChange(task.id, e)}
-                                    autoComplete='off'
-                                    style={{ width: "50px" }}
-                                >
-                                </input>
-                            </td>
-                            <td><button onClick={() => deleteRow(task.rowNumber)}>Delete</button></td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table >
-            <button type='submit'>Save</button>
-            <button type='button' onClick={addRow}>Add Task</button><br /><br />
-        </form>
+                ))}
+            </tbody>
+        </table >
+        <button type='button' onClick={saveTable}>Save</button>
+        <button type='button' onClick={addRow}>Add Task</button><br /><br />
     </>
 )
 

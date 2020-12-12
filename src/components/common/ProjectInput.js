@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from "prop-types";
 
-const ProjectInput = ({ projectList, handleChange, Id }) => {
+const ProjectInput = ({ projectList, handleChange, Inputvalue, taskId }) => {
     let [errorMessage, setErrorMessage] = useState('');
 
     const handleInput = (e) => {
@@ -9,7 +9,6 @@ const ProjectInput = ({ projectList, handleChange, Id }) => {
         let project = projectList.find(project => project.number === projectNumber);
         if (project || projectNumber === '') {
             setErrorMessage('')
-            handleChange(Id, e);
         }
         else {
             setErrorMessage('project does not exist');
@@ -21,8 +20,10 @@ const ProjectInput = ({ projectList, handleChange, Id }) => {
             <input
                 type='text'
                 list='data'
-                name='project'
+                name='number'
                 required
+                value={Inputvalue}
+                onChange={(e) => handleChange(taskId, e)}
                 onBlur={handleInput}
             >
             </input>
@@ -42,5 +43,6 @@ export default ProjectInput;
 ProjectInput.propTypes = {
     projectList: PropTypes.array.isRequired,
     handleChange: PropTypes.func.isRequired,
-    Id: PropTypes.string.isRequired,
+    Inputvalue: PropTypes.string.isRequired,
+    taskId: PropTypes.string
 };

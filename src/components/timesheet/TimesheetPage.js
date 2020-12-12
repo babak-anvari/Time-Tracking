@@ -10,7 +10,6 @@ import validateTable from '../../utils/validateTable';
 import TimesheetErrors from './TimesheetErrors';
 
 function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, loadProjects }) {
-    // ToDO: Projects are passed down from store upon geting the timesheet, have to pass down projects to timesheet table to choose projects
     let [tasks, setTasks] = useState(timesheet.tasks);
     let [date, setDate] = useState(new Date());
     let [errors, setErrors] = useState([]);
@@ -28,7 +27,7 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
     const addTask = () => {
         setTasks(addRowNumber([...tasks, {
             date: new Date().toISOString(),
-            projectId: '',
+            number: '',
             hour: 0
         }]));
     }
