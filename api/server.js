@@ -1,4 +1,4 @@
-import express, { response } from 'express';
+import express from 'express';
 import errorHandler from './middleware/errorHandler';
 import config from './config/config';
 import path from 'path';

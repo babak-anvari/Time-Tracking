@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { handleResponse, handleError } from './apiUtils'
+import handleApiResponse from './handleApiResponse'
+import handleApiError from './handleApiError'
 
 const baseUrl = process.env.API_URL + '/timesheet/'
 
@@ -12,8 +13,8 @@ export const getTimesheet = () => {
             userId: '5f5c080d01b43d9958fe2d54'
         }
     })
-        .then(handleResponse)
-        .catch(handleError)
+        .then(handleApiResponse)
+        .catch(handleApiError)
 }
 
 export const saveTimesheet = (tasks) => {
@@ -23,6 +24,6 @@ export const saveTimesheet = (tasks) => {
         url: baseUrl,
         data: tasks
     })
-        .then(handleResponse)
-        .catch(handleError)
+        .then(handleApiResponse)
+        .catch(handleApiError)
 }

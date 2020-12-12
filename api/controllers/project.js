@@ -9,13 +9,13 @@ router.get('/', verifyToken, ash(async (req, res) => {
     res.status(200).send(projects);
 }));
 
-router.post('/new', verifyToken, ash(async (req, res, next) => {
+router.post('/new', verifyToken, ash(async (req, res) => {
     let project = new Project(req.body);
     project = await services.create(project);
     res.send(project);
 }));
 
-router.get('/find', verifyToken, ash(async (req, res, next) => {
+router.get('/find', verifyToken, ash(async (req, res) => {
     let project = await services.find(req.query.projectNumber);
     res.status(200).send(project);
 }));

@@ -7,7 +7,7 @@ import './index.css';
 import configureStore from "./redux/configureStore";
 import { Provider as ReduxProvider } from "react-redux";
 
-const store = configureStore();
+export const store = configureStore();
 
 render(
   <ReduxProvider store={store}>

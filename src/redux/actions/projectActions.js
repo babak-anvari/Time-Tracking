@@ -1,5 +1,6 @@
 import * as types from "./actionTypes";
 import * as projectApi from '../../api/projectApi'
+import handleError from './handleError';
 
 export const loadProjectsSuccess = (projects) => {
     return { type: types.loadProjectsSuccess, projects }
@@ -13,8 +14,6 @@ export function loadProjects() {
                 console.log(projects);
                 dispatch(loadProjectsSuccess(projects));
             })
-            .catch(error => {
-                throw error;
-            })
+            .catch(handleError)
     };
 }
