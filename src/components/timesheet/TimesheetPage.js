@@ -6,9 +6,7 @@ import { loadProjects } from '../../redux/actions/projectActions'
 import PropTypes from "prop-types";
 import TimesheetTable from './TimesheetTable';
 import TimesheetInformation from './TimesheetInformation';
-import validateTable from '../../utils/validateTable';
-import TimesheetErrors from './TimesheetErrors';
-
+import validateTasks from './validateTasks';
 function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, loadProjects }) {
     let [tasks, setTasks] = useState(timesheet.tasks);
     let [date, setDate] = useState(new Date());
@@ -17,6 +15,12 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
     useEffect(() => {
         setTasks(addRowNumber(timesheet.tasks));
     }, [timesheet])
+
+    const getTimesheet = (e) => {
+        e.preventDefault();
+        loadTimesheet();
+        loadProjects();
+    }
 
     const handleChange = (id, e) => {
         let { name, value } = e.target;
@@ -36,20 +40,15 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
         setTasks(addRowNumber(tasks.filter((task) => task.rowNumber !== rowNumber)));
     }
 
-    const getTimesheet = (e) => {
-        e.preventDefault();
-        loadTimesheet();
-        loadProjects();
+    const save = () => {
+        let tableErrors = validateTasks(tasks, projects);
+        if (tableErrors.length == 0) saveTimesheet({ ...timesheet, tasks });
+        setErrors(tableErrors);
     }
 
-    const save = (e) => {
-        e.preventDefault();
-        let tableError = validateTable(tasks)
-        if (tableError == null) {
-            setErrors([]);
-            saveTimesheet({ ...timesheet, tasks });
-        }
-        else { setErrors(tableError) }
+    const findError = (taskId, propertyName) => {
+        let error = errors.find(error => error.id == taskId);
+        return (error !== undefined) ? error[propertyName] : null;
     }
 
     return (
@@ -63,15 +62,11 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
                 <TimesheetTable
                     tasks={(tasks)}
                     projectList={projects}
+                    findError={findError}
+                    handleChange={handleChange}
                     addRow={addTask}
                     deleteRow={deleteTask}
                     saveTable={save}
-                    handleChange={handleChange}
-                />
-            }<br /><br /><br />
-            {errors.length !== 0 &&
-                <TimesheetErrors
-                    errors={errors}
                 />
             }
         </div>

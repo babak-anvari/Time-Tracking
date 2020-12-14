@@ -1,11 +1,12 @@
+import "react-datepicker/dist/react-datepicker.css";
 import React from "react";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import parseISO from 'date-fns/parseISO';
 import ProjectInput from '../common/ProjectInput';
+import HourInput from '../common/HourInput';
+import parseISO from 'date-fns/parseISO';
 
-const TimesheetTable = ({ tasks, projectList, addRow, deleteRow, saveTable, handleChange }) => (
+const TimesheetTable = ({ tasks, projectList, addRow, deleteRow, saveTable, handleChange, findError }) => (
     <>
         <table className="table">
             <thead>
@@ -29,18 +30,26 @@ const TimesheetTable = ({ tasks, projectList, addRow, deleteRow, saveTable, hand
                                 )}
                             />
                         </td>
-                        <td><ProjectInput projectList={projectList} Inputvalue={task.number} handleChange={handleChange} taskId={task.id} /></td>
                         <td>
-                            <input
-                                name='hour'
-                                value={task.hour}
-                                onChange={(e) => handleChange(task.id, e)}
-                                autoComplete='off'
-                                style={{ width: "50px" }}
-                            >
-                            </input>
+                            <ProjectInput
+                                projectList={projectList}
+                                Inputvalue={task.number}
+                                handleChange={handleChange}
+                                error={findError(task.id, 'projectNumberError')}
+                                taskId={task.id}
+                            />
                         </td>
-                        <td><button onClick={() => deleteRow(task.rowNumber)}>Delete</button></td>
+                        <td>
+                            <HourInput
+                                Inputvalue={task.hour}
+                                handleChange={handleChange}
+                                error={findError(task.id, 'hourError')}
+                                taskId={task.id}
+                            />
+                        </td>
+                        <td>
+                            <button onClick={() => deleteRow(task.rowNumber)}>Delete</button>
+                        </td>
                     </tr>
                 ))}
             </tbody>
@@ -53,6 +62,7 @@ const TimesheetTable = ({ tasks, projectList, addRow, deleteRow, saveTable, hand
 TimesheetTable.propTypes = {
     tasks: PropTypes.array.isRequired,
     projectList: PropTypes.array.isRequired,
+    findError: PropTypes.func.isRequired,
     addRow: PropTypes.func.isRequired,
     deleteRow: PropTypes.func.isRequired,
     saveTable: PropTypes.func.isRequired,
