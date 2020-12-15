@@ -31,6 +31,6 @@ ProjectInput.propTypes = {
     projectList: PropTypes.array.isRequired,
     handleChange: PropTypes.func.isRequired,
     Inputvalue: PropTypes.string.isRequired,
-    error: PropTypes.string,
-    taskId: PropTypes.string
+    taskId: PropTypes.string,
+    error: PropTypes.string
 };

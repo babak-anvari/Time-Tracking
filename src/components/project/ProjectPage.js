@@ -6,24 +6,28 @@ import ProjectInfo from './ProjectInfo';
 
 const ProjectPage = ({ projects, loadProjects }) => {
     let [projectList, setProjectList] = useState(projects);
-    let [project, setProject] = useState({});
+    let [project, setProject] = useState('');
 
     useEffect(() => {
         loadProjects();
     }, [])
 
     useEffect(() => {
-        setProjectList(projects,);
+        setProjectList(projects);
     }, [projects])
 
-    const handleChange = (e) => {
-        let { name, value } = e.target;
-        console.log(e.target.value);
+    const handleChange = (id, e) => {
+        let { value } = e.target;
+        setProject(value);
     }
 
     return (
         <div>
-            <ProjectInfo projectList={projectList} handleChange={handleChange} />
+            <ProjectInfo
+                project={project}
+                projectList={projectList}
+                handleChange={handleChange}
+            />
         </div>
     )
 }
