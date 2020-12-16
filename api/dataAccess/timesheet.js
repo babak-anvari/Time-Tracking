@@ -17,11 +17,8 @@ export const create = async weeklyHours => {
 //Find timesheet
 export const find = async (weekEnding, userId) => {
   connectdb();
-  console.log('timesheet-dataaccess-find');
-  let timesheet = await TimesheetModel
+  return await TimesheetModel
     .findOne({ weekEnding: weekEnding, userId: userId })
-    .populate('data.projectId', 'number');
-  return (addProjectNumber(timesheet));
 }
 
 //Update timesheet

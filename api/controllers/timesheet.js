@@ -12,8 +12,14 @@ router.get('/', ash(async (req, res) => {
 
 //Save timesheet
 router.post('/', ash(async (req, res) => {
-    // let timesheet = await services.find(req.body.weekEnd, req.body.userId);
-    let timesheet = await services.create(req.body);
+    let timesheet = await services.find(req.body.weekEnd, req.body.userId);
+    if (timesheet) {
+        res.appError('Timesheet already exist', 400);
+    }
+    else {
+        timesheet = await services.create(req.body);
+        res.status(200).send(timesheet);
+    }
     // if (timesheet) {
     //     let timesheet = await services.update(req.body);
     //     res.send(timesheet);
