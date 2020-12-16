@@ -9,7 +9,7 @@ const validateTasks = (tasks, projects) => {
         if (hourError) {
             error = { ...error, id: task.id, hourError }
         }
-        let projectNumberError = validateProject(task.number, projects);
+        let projectNumberError = validateProject(task.projectNumber, projects);
         if (projectNumberError) {
             error = { ...error, id: task.id, projectNumberError }
         }

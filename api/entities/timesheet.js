@@ -1,8 +1,8 @@
 export class Timesheet {
-    constructor({ _id, userId, weekEnd, data }) {
+    constructor({ _id, userId, weekEnd, tasks }) {
         this._id = _id;
         this.userId = userId;
-        this.data = data;
+        this.tasks = tasks;
         this.weekEnd = weekEnd;
         this.weekEnding = this.weekEnding;
     }

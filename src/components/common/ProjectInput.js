@@ -6,7 +6,7 @@ const ProjectInput = ({ projectList, handleChange, Inputvalue, taskId, error }) 
         <input
             type='text'
             list='data'
-            name='number'
+            name='projectNumber'
             required
             autoComplete="off"
             value={Inputvalue}
@@ -14,11 +14,12 @@ const ProjectInput = ({ projectList, handleChange, Inputvalue, taskId, error }) 
         >
         </input>
         <datalist id='data'>
-            {projectList.map(
-                project => (<option key={project._id} value={project.number}>{project.number}</option>))
-            }
+            {projectList.map(project => (
+                <option key={project._id} value={project._id}>{project.number}</option>
+            ))}
         </datalist>
-        { error &&
+        {
+            error &&
             <p style={{ color: 'red' }}>{error}</p>
         }
 

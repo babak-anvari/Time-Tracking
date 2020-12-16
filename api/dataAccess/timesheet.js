@@ -1,4 +1,5 @@
 import TimesheetModel from './models/timesheet';
+import * as projectDataAccess from './project';
 import { connectdb, disConnectdb } from './database';
 import { Timesheet } from '../entities/timesheet';
 
@@ -6,7 +7,7 @@ import { Timesheet } from '../entities/timesheet';
 //Create new timesheet
 export const create = async weeklyHours => {
   connectdb();
-  console.log('dataAccess');
+  weeklyHours = await addProjectId(weeklyHours);
   let timesheetInfo = new TimesheetModel(weeklyHours);
   timesheetInfo = await timesheetInfo.save();
   let timesheet = await TimesheetModel.populate(timesheetInfo, 'data.projectId');
@@ -36,12 +37,26 @@ export const update = async weeklyHours => {
 const addProjectNumber = (timesheet) => {
   if (timesheet) {
     timesheet = JSON.parse(JSON.stringify(timesheet));
-    let allRows = timesheet.data.map((data) => {
-      data.projectNumber = data.projectId.number;
-      return (data);
+    let allRows = timesheet.tasks.map((task) => {
+      task.projectNumber = task.projectId.number;
+      return (task);
     })
-    timesheet.data = allRows;
+    timesheet.task = allRows;
     return (timesheet);
+  }
+  else return (null);
+}
+
+//Change tasks project numbers to project Ids
+const addProjectId = async (weeklyHours) => {
+  let projectList = await projectDataAccess.findAll();
+  if (weeklyHours) {
+    let allRows = weeklyHours.tasks.map((task) => {
+      let project = projectList.find(project => project.number == task.projectNumber);
+      return ({ ...task, projectId: project._id })
+    })
+    weeklyHours.tasks = allRows;
+    return (weeklyHours);
   }
   else return (null);
 }

@@ -33,7 +33,7 @@ const TimesheetTable = ({ tasks, projectList, addRow, deleteRow, saveTable, hand
                         <td>
                             <ProjectInput
                                 projectList={projectList}
-                                Inputvalue={task.number}
+                                Inputvalue={task.projectNumber}
                                 handleChange={handleChange}
                                 error={findError(task.id, 'projectNumberError')}
                                 taskId={task.id}

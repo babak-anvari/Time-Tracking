@@ -9,17 +9,43 @@ import TimesheetInformation from './TimesheetInformation';
 import validateTasks from './validateTasks';
 function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, loadProjects }) {
     let [tasks, setTasks] = useState(timesheet.tasks);
-    let [date, setDate] = useState(new Date());
+    let [weekEnd, setWeekEnd] = useState(new Date());
     let [errors, setErrors] = useState([]);
 
     useEffect(() => {
-        setTasks(addRowNumber(timesheet.tasks));
+        loadProjects();
+    }, [])
+
+    useEffect(() => {
+    }, [projects])
+
+    useEffect(() => {
+        if (timesheet.tasks && timesheet.tasks.length !== 0) {
+            setTasks(setupTasks(timesheet.tasks));
+        }
+        else {
+            setTasks(setupTasks([newTask]));
+        }
     }, [timesheet])
 
     const getTimesheet = (e) => {
         e.preventDefault();
-        loadTimesheet();
-        loadProjects();
+        loadTimesheet(weekEnd);
+        // loadProjects();
+    }
+
+    const save = () => {
+        let tableErrors = validateTasks(tasks, projects);
+        if (tableErrors.length == 0) {
+            timesheet = {
+                ...timesheet,
+                weekEnd,
+                userId: JSON.parse(localStorage.getItem('user')).id,
+                tasks
+            }
+            saveTimesheet(timesheet);
+        }
+        setErrors(tableErrors);
     }
 
     const handleChange = (id, e) => {
@@ -29,21 +55,11 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
     }
 
     const addTask = () => {
-        setTasks(addRowNumber([...tasks, {
-            date: new Date().toISOString(),
-            number: '',
-            hour: 0
-        }]));
+        setTasks(setupTasks([...tasks, newTask]));
     }
 
     const deleteTask = (rowNumber) => {
-        setTasks(addRowNumber(tasks.filter((task) => task.rowNumber !== rowNumber)));
-    }
-
-    const save = () => {
-        let tableErrors = validateTasks(tasks, projects);
-        if (tableErrors.length == 0) saveTimesheet({ ...timesheet, tasks });
-        setErrors(tableErrors);
+        setTasks(setupTasks(tasks.filter((task) => task.rowNumber !== rowNumber)));
     }
 
     const findError = (taskId, propertyName) => {
@@ -51,11 +67,23 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
         return (error !== undefined) ? error[propertyName] : null;
     }
 
+    //Add row number, row unique id and project number
+    const setupTasks = (tasks) => {
+        return tasks.map((task, index) => {
+            if (!task.id) task = { ...task, id: uuid() }
+            let project = projects.find(project => project._id == task.projectId)
+            project
+                ? task = { ...task, projectNumber: project.number }
+                : task = { ...task, projectNumber: 'enter project number' }
+            return { ...task, rowNumber: index + 1 };
+        })
+    }
+
     return (
         <div>
             <TimesheetInformation
-                date={date}
-                setDate={setDate}
+                weekEnd={weekEnd}
+                setWeekEnd={setWeekEnd}
                 getTimesheet={getTimesheet}
             /><br /><br /><br />
             {tasks.length !== 0 &&
@@ -81,12 +109,16 @@ TimesheetPage.propTypes = {
     loadProjects: PropTypes.func.isRequired
 };
 
-//add row number and row unique id
-const addRowNumber = (tableData) => {
-    return tableData.map((row, index) => {
-        if (row.id == null) row = { ...row, id: uuid() };
-        return { ...row, rowNumber: index + 1 };
-    })
+// let newTask = {
+//     date: new Date().toISOString(),
+//     projectNumber: '',
+//     hour: 0
+// }
+
+let newTask = {
+    date: new Date().toISOString(),
+    projectNumber: '120',
+    hour: 1
 }
 
 function mapStateToProps(state) {
