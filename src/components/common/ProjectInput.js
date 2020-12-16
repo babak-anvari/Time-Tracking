@@ -15,7 +15,7 @@ const ProjectInput = ({ projectList, handleChange, Inputvalue, taskId, error }) 
         </input>
         <datalist id='data'>
             {projectList.map(project => (
-                <option key={project._id} value={project._id}>{project.number}</option>
+                <option key={project._id} value={project.number} />
             ))}
         </datalist>
         {

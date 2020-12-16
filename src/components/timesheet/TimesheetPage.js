@@ -9,7 +9,7 @@ import TimesheetInformation from './TimesheetInformation';
 import validateTasks from './validateTasks';
 function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, loadProjects }) {
     let [tasks, setTasks] = useState(timesheet.tasks);
-    let [weekEnd, setWeekEnd] = useState(new Date());
+    let [weekEnd, setWeekEnd] = useState(null);
     let [errors, setErrors] = useState([]);
 
     useEffect(() => {
@@ -28,10 +28,9 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
         }
     }, [timesheet])
 
-    const getTimesheet = (e) => {
-        e.preventDefault();
+    const getTimesheet = (weekEnd) => {
         loadTimesheet(weekEnd);
-        // loadProjects();
+        setWeekEnd(weekEnd)
     }
 
     const save = () => {
@@ -72,9 +71,9 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
         return tasks.map((task, index) => {
             if (!task.id) task = { ...task, id: uuid() }
             let project = projects.find(project => project._id == task.projectId)
-            project
-                ? task = { ...task, projectNumber: project.number }
-                : task = { ...task, projectNumber: 'enter project number' }
+            if (project) {
+                task = { ...task, projectNumber: project.number }
+            }
             return { ...task, rowNumber: index + 1 };
         })
     }
@@ -83,10 +82,9 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
         <div>
             <TimesheetInformation
                 weekEnd={weekEnd}
-                setWeekEnd={setWeekEnd}
                 getTimesheet={getTimesheet}
             /><br /><br /><br />
-            {tasks.length !== 0 &&
+            {weekEnd &&
                 <TimesheetTable
                     tasks={(tasks)}
                     projectList={projects}
@@ -109,16 +107,10 @@ TimesheetPage.propTypes = {
     loadProjects: PropTypes.func.isRequired
 };
 
-// let newTask = {
-//     date: new Date().toISOString(),
-//     projectNumber: '',
-//     hour: 0
-// }
-
 let newTask = {
     date: new Date().toISOString(),
-    projectNumber: '120',
-    hour: 1
+    projectNumber: '',
+    hour: 0
 }
 
 function mapStateToProps(state) {
