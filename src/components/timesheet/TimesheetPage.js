@@ -42,9 +42,7 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
                 userId: JSON.parse(localStorage.getItem('user')).id,
                 tasks
             }
-            saveTimesheet(timesheet)
-                .then(alert('timesheet successfully saved'))
-                .catch(error => console.log(error));
+            saveTimesheet(timesheet);
         }
         setErrors(tableErrors);
     }

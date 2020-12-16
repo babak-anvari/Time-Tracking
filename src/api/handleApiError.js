@@ -1,6 +1,6 @@
 const handleApiError = (error) => {
     let { status, statusText, data } = error.response;
-    console.log(`Status Code: ${status} Status text: ${statusText} Message ${data}`);
+    console.log(`Status Code: ${status} - Status text: ${statusText} - Message: ${data}`);
     if (status === 400) {
         switch (data) {
             case ('Timesheet already exist'):
