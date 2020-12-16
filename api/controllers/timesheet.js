@@ -20,16 +20,13 @@ router.post('/', ash(async (req, res) => {
         timesheet = await services.create(req.body);
         res.status(200).send(timesheet);
     }
-    // if (timesheet) {
-    //     let timesheet = await services.update(req.body);
-    //     res.send(timesheet);
-    // }
-    // else {
-    //     let timesheet = await services.create(req.body);
-    //     // console.log(timesheet);
-    //     res.send(timesheet);
-    // }
-    res.send(timesheet);
 }))
+
+//Update timesheet
+router.put('/', ash(async (req, res) => {
+    let timesheet = await services.update(req.body);
+    res.status(200).send(timesheet);
+}))
+
 
 module.exports = router;

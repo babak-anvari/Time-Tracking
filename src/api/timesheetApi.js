@@ -19,7 +19,7 @@ export const getTimesheet = (weekEnd) => {
 
 export const saveTimesheet = (timesheet) => {
     return axios({
-        method: timesheet._id ? 'post' : 'post',
+        method: timesheet._id ? 'put' : 'post',
         url: baseUrl,
         data: timesheet
     })

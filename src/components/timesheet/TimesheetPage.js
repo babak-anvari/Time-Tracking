@@ -49,8 +49,18 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
 
     const handleChange = (id, e) => {
         let { name, value } = e.target;
+        let projectId = null;
         value = (name === 'hour') ? parseInt(value, 10) : value;
-        setTasks(tasks.map(task => task.id == id ? { ...task, [name]: value } : task));
+        if (name === 'projectNumber') {
+            let selectedProject = projects.find(project => project.number == value);
+            projectId = (selectedProject) ? selectedProject._id : null;
+        }
+        if (projectId) {
+            setTasks(tasks.map(task => task.id == id ? { ...task, [name]: value, projectId } : task));
+        }
+        else {
+            setTasks(tasks.map(task => task.id == id ? { ...task, [name]: value } : task));
+        }
     }
 
     const addTask = () => {
