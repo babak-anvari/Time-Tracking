@@ -19,7 +19,7 @@ export const find = async (weekEnding, userId) => {
 //Update timesheet
 export const update = async weeklyHours => {
   connectdb();
-  let query = { weekEnding: weeklyHours.weekEnding, userId: weeklyHours.userId }
-  await TimesheetModel.updateOne(query, { $set: { data: weeklyHours.data } });
+  let query = { weekEnding: weeklyHours.weekEnding, userId: weeklyHours.userId };
+  await TimesheetModel.updateOne(query, { $set: { tasks: weeklyHours.tasks } });
   return (find(weeklyHours.weekEnding, weeklyHours.userId));
 }
