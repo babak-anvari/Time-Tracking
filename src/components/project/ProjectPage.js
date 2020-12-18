@@ -2,11 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import { loadProjects } from '../../redux/actions/projectActions';
-import ProjectInfo from './ProjectInfo';
+import ProjectControl from './ProjectControl';
+import ProjectForm from './ProjectForm';
 
 const ProjectPage = ({ projects, loadProjects }) => {
     let [projectList, setProjectList] = useState(projects);
-    let [project, setProject] = useState('');
+    let [inputProject, setInputProject] = useState({ projectNumber: '', _id: '' });
+    let [projectInfo, setProjectInfo] = useState({});
 
     useEffect(() => {
         loadProjects();
@@ -16,18 +18,40 @@ const ProjectPage = ({ projects, loadProjects }) => {
         setProjectList(projects);
     }, [projects])
 
-    const handleChange = (id, e) => {
-        let { value } = e.target;
-        setProject(value);
+    useEffect(() => {
+        let findProject = projectList.find(project => project._id == inputProject._id);
+        (findProject)
+            ? setProjectInfo(findProject)
+            : setProjectInfo({});
+    }, [inputProject])
+
+    const handleProjectControlChange = (e) => {
+        let { name, value } = e.target;
+        inputProject = { ...inputProject, [name]: value };
+        let selectedProject = projectList.find(project => project.number == inputProject.projectNumber);
+        let _id = (selectedProject) ? selectedProject._id : null;
+        inputProject = { ...inputProject, _id };
+        setInputProject(inputProject);
+    }
+
+    const handleProjectFormChange = (e) => {
+        let { name, value } = e.target;
+        projectInfo = { ...projectInfo, [name]: value };
+        setProjectInfo(projectInfo);
     }
 
     return (
         <div>
-            <ProjectInfo
-                project={project}
+            <ProjectControl
+                inputProject={inputProject}
                 projectList={projectList}
-                handleChange={handleChange}
-            />
+                handleChange={handleProjectControlChange}
+            />{projectInfo._id &&
+                <ProjectForm
+                    projectInfo={projectInfo}
+                    handleChange={handleProjectFormChange}
+                />
+            }
         </div>
     )
 }

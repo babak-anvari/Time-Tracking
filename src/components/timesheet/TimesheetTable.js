@@ -26,7 +26,7 @@ const TimesheetTable = ({ tasks, projectList, addRow, deleteRow, saveTable, hand
                                 selected={parseISO(task.date)}
                                 closeOnScroll={true}
                                 onChange={(date) => handleChange(
-                                    task.id, { target: { name: 'date', value: date.toISOString() } }
+                                    { target: { name: 'date', value: date.toISOString() } }, task.id
                                 )}
                             />
                         </td>

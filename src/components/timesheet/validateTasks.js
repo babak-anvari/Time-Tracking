@@ -3,6 +3,7 @@ import validateInputHour from '../../utils/validateInputHour'
 
 const validateTasks = (tasks, projects) => {
     let errors = [];
+
     tasks.map(task => {
         let error = {};
         let hourError = validateInputHour(task.hour);

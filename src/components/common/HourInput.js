@@ -6,7 +6,7 @@ const HourInput = ({ handleChange, Inputvalue, taskId, error }) => (
         <input
             name='hour'
             value={Inputvalue}
-            onChange={(e) => handleChange(taskId, e)}
+            onChange={(e) => handleChange(e, taskId)}
             autoComplete='off'
             style={{ width: "50px" }}
         >

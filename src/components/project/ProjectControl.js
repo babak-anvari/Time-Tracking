@@ -2,22 +2,21 @@ import React from 'react';
 import PropTypes from "prop-types";
 import ProjectInput from '../common/ProjectInput';
 
-const ProjectInfo = ({ project, projectList, handleChange }) => (
+const ProjectControl = ({ inputProject, projectList, handleChange }) => (
     <>
         <p>Select project number</p>
         <ProjectInput
             projectList={projectList}
-            Inputvalue={project}
+            Inputvalue={inputProject.projectNumber}
             handleChange={handleChange}
-        // taskId={null}
         />
     </>
 )
 
-export default ProjectInfo;
+export default ProjectControl;
 
-ProjectInfo.propTypes = {
-    project: PropTypes.string.isRequired,
+ProjectControl.propTypes = {
+    inputProject: PropTypes.object.isRequired,
     projectList: PropTypes.array.isRequired,
     handleChange: PropTypes.func.isRequired,
 };

@@ -10,7 +10,7 @@ const ProjectInput = ({ projectList, handleChange, Inputvalue, taskId, error }) 
             required
             autoComplete="off"
             value={Inputvalue}
-            onChange={(e) => handleChange(taskId, e)}
+            onChange={(e) => handleChange(e, taskId)}
         >
         </input>
         <datalist id='data'>

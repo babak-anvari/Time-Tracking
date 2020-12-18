@@ -47,7 +47,7 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
         setErrors(tableErrors);
     }
 
-    const handleChange = (id, e) => {
+    const handleChange = (e, id) => {
         let { name, value } = e.target;
         let projectId = null;
         value = (name === 'hour') ? parseInt(value, 10) : value;
