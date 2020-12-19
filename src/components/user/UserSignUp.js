@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
-const UserSignUp = ({ user, handleChange }) => (
-    <form onSubmit={handleChange}>
+const UserSignUp = ({ handleChange, createNewUser }) => (
+    <form onSubmit={createNewUser}>
         <input type="text" placeholder="Email Address" name="email" autoComplete='off' onChange={handleChange} /><br /><br />
         <input type="text" placeholder="Password" name="password" autoComplete='off' onChange={handleChange} /><br /><br />
         <input type="text" placeholder="First name" name="firstName" autoComplete='off' onChange={handleChange} /><br /><br />
@@ -14,7 +14,7 @@ const UserSignUp = ({ user, handleChange }) => (
 )
 
 UserSignUp.propTypes = {
-    user: PropTypes.object.isRequired,
+    createNewUser: PropTypes.object.isRequired,
     handleChange: PropTypes.func.isRequired
 };
 

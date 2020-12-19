@@ -1,33 +1,30 @@
 import UserModel from './models/user';
-import { connectdb, disConnectdb } from './database';
+import { connectdb } from './database';
 import { User } from '../entities/user';
 
-const create = async userInfo => {
+export const create = async userInfo => {
   connectdb();
   let user = new UserModel(userInfo);
   user = await user.save();
   user = user ? new User(user) : null;
-  // disConnectdb();
   return user;
 }
 
-const findByEmail = async userEmail => {
+export const find = async userEmail => {
   connectdb();
   let userinfo = await UserModel.findOne({ email: userEmail });
   let user = userinfo ? new User(userinfo) : null;
-  // disConnectdb();
   return user;
 }
 
-const checkpassword = async userEmail => {
+export const checkpassword = async userEmail => {
   connectdb();
   let userinfo = await UserModel.findOne({ email: userEmail });
   let user = userinfo ? userinfo : null;
-  // disConnectdb();
   return user;
 }
 
-const update = async userInfo => {
+export const update = async userInfo => {
   connectdb();
   let user = await UserModel.findByIdAndUpdate(
     { _id: userInfo._id },
@@ -41,11 +38,4 @@ const update = async userInfo => {
   )
 
   return user;
-}
-
-module.exports = {
-  create,
-  findByEmail,
-  update,
-  checkpassword
 }

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-import { userLogin } from '../../redux/actions/userActions';
+import { userLogin, createUser } from '../../redux/actions/userActions';
 import UserLogin from './UserLogin';
 import UserProfile from './UserProfile';
 import UserSignUp from './UserSignUp';
 
-const UserPage = ({ currentUser, userLogin }) => {
+const UserPage = ({ currentUser, userLogin, createUser }) => {
     let [user, setUser] = useState({});
 
     useEffect(() => {
@@ -32,6 +32,11 @@ const UserPage = ({ currentUser, userLogin }) => {
         }
     }
 
+    const createNewUser = (e) => {
+        e.preventDefault();
+        createUser(user);
+    }
+
     return (
         <div>
             {!currentUser.id &&
@@ -45,6 +50,7 @@ const UserPage = ({ currentUser, userLogin }) => {
                 <UserSignUp
                     user={user}
                     handleChange={handleChange}
+                    createNewUser={createNewUser}
                 />
             }
             {currentUser.id &&
@@ -59,7 +65,8 @@ const UserPage = ({ currentUser, userLogin }) => {
 
 UserPage.propTypes = {
     currentUser: PropTypes.object.isRequired,
-    userLogin: PropTypes.func.isRequired
+    userLogin: PropTypes.func.isRequired,
+    createUser: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -68,7 +75,7 @@ function mapStateToProps(state) {
     };
 }
 
-const mapDispatchToProps = { userLogin };
+const mapDispatchToProps = { userLogin, createUser };
 
 export default connect(
     mapStateToProps,

@@ -13,14 +13,14 @@ router.get('/', verifyToken, ash(async (req, res) => {
     res.send(user);
 }));
 
-router.post('/', ash(async (req, res) => {
-    let user = new User(req.body);
-    user.password = req.body.password;
-    user = await services.create(user);
-    res.send(user);
-}));
+// router.post('/', ash(async (req, res) => {
+//     let user = new User(req.body);
+//     user.password = req.body.password;
+//     user = await services.create(user);
+//     res.send(user);
+// }));
 
-router.post('/register', ash(async (req, res, next) => {
+router.post('/', ash(async (req, res, next) => {
     let user = await services.register(req, res, next);
     res.status(200).send(user);
 }))
