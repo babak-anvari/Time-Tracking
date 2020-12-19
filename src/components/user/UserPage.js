@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
 import { userLogin } from '../../redux/actions/userActions';
-import UserLoginInfo from './UserLoginInfo';
+import UserLogin from './UserLogin';
 import UserProfile from './UserProfile';
 
 const UserPage = ({ currentUser, userLogin }) => {
     let [user, setUser] = useState({});
+
+    useEffect(() => {
+        setUser(currentUser);
+    }, [currentUser]);
 
     const handleChange = (e) => {
         let { name, value } = e.target;
@@ -29,12 +33,17 @@ const UserPage = ({ currentUser, userLogin }) => {
 
     return (
         <div>
-            <UserLoginInfo
-                handleChange={handleChange}
-                loginUser={loginUser}
-            /><br /><br />
+            {!currentUser.id &&
+                <UserLogin
+                    handleChange={handleChange}
+                    loginUser={loginUser}
+                />
+            }
             {currentUser.id &&
-                <UserProfile currentUser={currentUser} />
+                <UserProfile
+                    user={user}
+                    handleChange={handleChange}
+                />
             }
         </div>
     )
