@@ -1,59 +1,68 @@
+import "react-datepicker/dist/react-datepicker.css";
 import React from "react";
 import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
+import ProjectInput from '../common/ProjectInput';
+import HourInput from '../common/HourInput';
 import parseISO from 'date-fns/parseISO';
 
-const TimesheetTable = ({ tasks, addRow, deleteRow, saveTable, handleChange }) => (
+const TimesheetTable = ({ tasks, projectList, addRow, deleteRow, saveTable, handleChange, findError }) => (
     <>
-        <form onSubmit={saveTable}>
-            <table className="table">
-                <thead>
-                    <tr>
-                        <th>Task Number</th>
-                        <th>Date</th>
-                        <th>Project</th>
-                        <th>Hour</th>
+        <table className="table">
+            <thead>
+                <tr>
+                    <th>Task Number</th>
+                    <th>Date</th>
+                    <th>Project</th>
+                    <th>Hour</th>
+                </tr>
+            </thead>
+            <tbody>
+                {tasks.map(task => (
+                    <tr key={task.id} >
+                        <td>{task.rowNumber}</td>
+                        <td>
+                            <DatePicker
+                                selected={parseISO(task.date)}
+                                closeOnScroll={true}
+                                onChange={(date) => handleChange(
+                                    { target: { name: 'date', value: date.toISOString() } }, task.id
+                                )}
+                            />
+                        </td>
+                        <td>
+                            <ProjectInput
+                                projectList={projectList}
+                                Inputvalue={task.projectNumber}
+                                handleChange={handleChange}
+                                error={findError(task.id, 'projectNumberError')}
+                                taskId={task.id}
+                            />
+                        </td>
+                        <td>
+                            <HourInput
+                                Inputvalue={task.hour}
+                                handleChange={handleChange}
+                                error={findError(task.id, 'hourError')}
+                                taskId={task.id}
+                            />
+                        </td>
+                        <td>
+                            <button onClick={() => deleteRow(task.rowNumber)}>Delete</button>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    {tasks.map(task => (
-                        <tr key={task.id} >
-                            <td>{task.rowNumber}</td>
-                            <td>
-                                <DatePicker
-                                    selected={parseISO(task.date)}
-                                    closeOnScroll={true}
-                                    onChange={(date) => handleChange(
-                                        task.id, { target: { name: 'date', value: date.toISOString() } }
-                                    )}
-                                />
-                            </td>
-                            <td><input name='projectId' value={task.projectId} onChange={(e) => handleChange(task.id, e)} autoComplete='off' /></td>
-                            <td>
-                                <input
-                                    name='hour'
-                                    // type='text'
-                                    // pattern='[0-9]*'
-                                    value={task.hour} onChange={(e) => handleChange(task.id, e)}
-                                    autoComplete='off'
-                                    style={{ width: "50px" }}
-                                >
-                                </input>
-                            </td>
-                            <td><button onClick={() => deleteRow(task.rowNumber)}>Delete</button></td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table >
-            <button type='submit'>Save</button>
-            <button type='button' onClick={addRow}>Add Task</button><br /><br />
-        </form>
+                ))}
+            </tbody>
+        </table >
+        <button type='button' onClick={saveTable}>Save</button>
+        <button type='button' onClick={addRow}>Add Task</button><br /><br />
     </>
 )
 
 TimesheetTable.propTypes = {
     tasks: PropTypes.array.isRequired,
+    projectList: PropTypes.array.isRequired,
+    findError: PropTypes.func.isRequired,
     addRow: PropTypes.func.isRequired,
     deleteRow: PropTypes.func.isRequired,
     saveTable: PropTypes.func.isRequired,

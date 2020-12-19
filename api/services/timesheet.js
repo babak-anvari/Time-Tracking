@@ -1,18 +1,18 @@
 const { createTimesheet } = require('../dataAccess/timesheet');
 import * as dataAccess from '../dataAccess/timesheet';
-import { Timesheet, TimesheetDateFormatter } from '../entities/timesheet'
+import { Timesheet } from '../entities/timesheet'
 
 //Create timesheet
 export const create = async (weeklyHours) => {
-    console.log('timesheet-service-create');
+    // console.log('timesheet-service-create');
     weeklyHours = new Timesheet(weeklyHours);
     if (!weeklyHours.weekEnding) {
         weeklyHours.weekEnding = Timesheet.deconstructDate(weeklyHours.weekEnd);
     }
-    console.log(weeklyHours);
+    // console.log(weeklyHours);
     weeklyHours = await dataAccess.create(weeklyHours);
     weeklyHours = new Timesheet(weeklyHours);
-    return timesheet;
+    return weeklyHours;
 }
 
 //Find timesheet

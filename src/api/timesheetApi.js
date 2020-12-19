@@ -1,28 +1,28 @@
 import axios from 'axios';
-import { handleResponse, handleError } from './apiUtils'
+import handleApiResponse from './handleApiResponse'
+import handleApiError from './handleApiError'
 
 const baseUrl = process.env.API_URL + '/timesheet/'
 
-export const getTimesheet = () => {
+export const getTimesheet = (weekEnd) => {
     return axios({
         method: 'get',
         url: baseUrl,
         params: {
-            weekEnd: Date.parse('2020-09-26'),
-            userId: '5f5c080d01b43d9958fe2d54'
+            weekEnd,
+            userId: JSON.parse(localStorage.getItem('user')).id
         }
     })
-        .then(handleResponse)
-        .catch(handleError)
+        .then(handleApiResponse)
+        .catch(handleApiError)
 }
 
-export const saveTimesheet = (tasks) => {
+export const saveTimesheet = (timesheet) => {
     return axios({
-        // method: timesheet.id ? 'put' : 'post',
-        method: 'post',
+        method: timesheet._id ? 'put' : 'post',
         url: baseUrl,
-        data: tasks
+        data: timesheet
     })
-        .then(handleResponse)
-        .catch(handleError)
+        .then(handleApiResponse)
+        .catch(handleApiError)
 }

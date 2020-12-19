@@ -9,8 +9,8 @@ export const userRenewLoginSuccess = (user) => {
     return { type: types.userRenewLoginSuccess, user }
 }
 
-export const userSignOutSuccess = (user) => {
-    return { type: types.userSignOutSuccess, user }
+export const userSignOutSuccess = () => {
+    return { type: types.userSignOutSuccess }
 }
 
 export function userLogin(user) {

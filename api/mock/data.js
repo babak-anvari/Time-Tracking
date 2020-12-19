@@ -17,7 +17,7 @@ let timesheet = {
         {
             date: new Date('2020,2,3'),
             hour: 12,
-            projectId: "p1",
+            number: "120",
             activity: "A-200",
             category: "Z-ENG",
             transactionText: "DISCHARGE CONVEYOR"
@@ -25,7 +25,7 @@ let timesheet = {
         {
             date: new Date('2020,2,3'),
             hour: 14,
-            projectId: "p2",
+            number: "121",
             activity: "A-200",
             category: "Z-ENG",
             transactionText: "Take up"
@@ -33,7 +33,7 @@ let timesheet = {
         {
             date: new Date('2020,2,3'),
             hour: 30,
-            projectId: "p3",
+            number: "122",
             activity: "A-200",
             category: "Z-ENG",
             transactionText: "Take up"

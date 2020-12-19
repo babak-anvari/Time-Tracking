@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 import config from '../config/config';
-import * as services from '../services/user';
+import * as userServices from '../services/user';
 
 export const verifyToken = (req, res, next) => {
     console.log('Verifying the token');
@@ -8,10 +8,13 @@ export const verifyToken = (req, res, next) => {
     if (!token) {
         res.appError('Token is not provided', 403);
     }
-    jwt.verify(token, config.secret, async (err, decoded) => {
-        console.log(err);
-        if (err) res.appError('Unauthorized!', 401);
-        req.body.user = await services.find(decoded.email);
-        next();
+    jwt.verify(token, config.secret, (err, decoded) => {
+        if (err) res.appError(err.message, 401);
+        userServices.find(decoded.email)
+            .then(user => {
+                req.body.user = user;
+                next();
+            })
+            .catch(err)
     });
 };

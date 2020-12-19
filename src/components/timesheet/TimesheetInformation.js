@@ -3,25 +3,23 @@ import PropTypes from "prop-types";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const TimesheetInformation = ({ date, setDate, getTimesheet }) => {
+const TimesheetInformation = ({ weekEnd, getTimesheet }) => {
     return (
-        < form onSubmit={getTimesheet}>
-            <p>Select weekending date</p>
+        <>
+            <p>Select week end date</p>
             < DatePicker
-                selected={date}
+                selected={weekEnd}
                 closeOnScroll={true}
                 showWeekNumbers
                 filterDate={date => (date.getDay() == 6)}
-                onChange={selectedDate => setDate(selectedDate)}
+                onChange={selectedDate => getTimesheet(selectedDate)}
             /><br /><br />
-            <button type='submit'>Get Timesheet</button>
-        </form >
+        </>
     )
 }
 
 TimesheetInformation.propTypes = {
-    date: PropTypes.object.isRequired,
-    setDate: PropTypes.func.isRequired,
+    weekEnd: PropTypes.object,
     getTimesheet: PropTypes.func.isRequired,
 };
 

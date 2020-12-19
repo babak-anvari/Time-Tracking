@@ -24,7 +24,7 @@ const Header = ({ currentUser, userRenewLogin, userSignOut }) => {
                     {" | "}
                     <NavLink to="/timesheet" activeStyle={activeStyle}>Timesheet</NavLink>
                     {" | "}
-                    <NavLink to="/" onClick={userSignOut}>Sign out</NavLink>
+                    <NavLink to="/user" onClick={userSignOut}>Sign out</NavLink>
                     {" | "}
                 </>
             }

@@ -1,4 +1,4 @@
-import express, { response } from 'express';
+import express from 'express';
 import errorHandler from './middleware/errorHandler';
 import config from './config/config';
 import path from 'path';
@@ -6,7 +6,7 @@ import path from 'path';
 let app = express();
 
 require('./middleware/appMiddleware')(app); //setup app middlewares
-app.use(require("./mock/mockServer"));
+// app.use(require("./mock/mockServer"));
 app.use(require('./controllers/router'));   //setup app routers
 app.use(errorHandler);                      //setup error handler
 

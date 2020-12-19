@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { handleResponse, handleError } from './apiUtils'
+import handleApiResponse from './handleApiResponse'
+import handleApiError from './handleApiError'
 
 const baseUrl = process.env.API_URL + '/user/login'
 
@@ -12,6 +13,6 @@ export const userLogin = (user) => {
             password: user.password
         }
     })
-        .then(handleResponse)
-        .catch(handleError)
+        .then(handleApiResponse)
+        .catch(handleApiError)
 }

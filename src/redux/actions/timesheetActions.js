@@ -9,10 +9,10 @@ export const saveTimesheetSuccess = (timesheet) => {
     return { type: types.SAVE_TIMESHEET_SUCCESS, timesheet }
 }
 
-export function loadTimesheet() {
+export function loadTimesheet(weekEnd) {
     return function (dispatch) {
         return timesheetApi
-            .getTimesheet()
+            .getTimesheet(weekEnd)
             .then((timesheet) => {
                 dispatch(loadTimesheetSuccess(timesheet));
             })

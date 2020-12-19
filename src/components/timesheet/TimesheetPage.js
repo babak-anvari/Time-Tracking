@@ -2,75 +2,107 @@ import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { v4 as uuid } from 'uuid';
 import { loadTimesheet, saveTimesheet } from '../../redux/actions/timesheetActions';
+import { loadProjects } from '../../redux/actions/projectActions'
 import PropTypes from "prop-types";
 import TimesheetTable from './TimesheetTable';
 import TimesheetInformation from './TimesheetInformation';
-import validateTable from '../../utils/validateTable';
-import TimesheetErrors from './TimesheetErrors';
-
-function TimesheetPage({ timesheet, loadTimesheet, saveTimesheet }) {
-
+import validateTasks from './validateTasks';
+function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, loadProjects }) {
     let [tasks, setTasks] = useState(timesheet.tasks);
-    let [date, setDate] = useState(new Date());
+    let [weekEnd, setWeekEnd] = useState(null);
     let [errors, setErrors] = useState([]);
 
     useEffect(() => {
-        setTasks(addRowNumber(timesheet.tasks));
+        loadProjects();
+    }, [])
+
+    useEffect(() => {
+    }, [projects])
+
+    useEffect(() => {
+        if (timesheet.tasks && timesheet.tasks.length !== 0) {
+            setTasks(setupTasks(timesheet.tasks));
+        }
+        else {
+            setTasks(setupTasks([newTask]));
+        }
     }, [timesheet])
 
-    const handleChange = (id, e) => {
+    const getTimesheet = (weekEnd) => {
+        loadTimesheet(weekEnd);
+        setWeekEnd(weekEnd)
+    }
+
+    const save = () => {
+        let tableErrors = validateTasks(tasks, projects);
+        if (tableErrors.length == 0) {
+            timesheet = {
+                ...timesheet,
+                weekEnd,
+                userId: JSON.parse(localStorage.getItem('user')).id,
+                tasks
+            }
+            saveTimesheet(timesheet);
+        }
+        setErrors(tableErrors);
+    }
+
+    const handleChange = (e, id) => {
         let { name, value } = e.target;
+        let projectId = null;
         value = (name === 'hour') ? parseInt(value, 10) : value;
-        setTasks(tasks.map(task => task.id == id ? { ...task, [name]: value } : task));
+        if (name === 'projectNumber') {
+            let selectedProject = projects.find(project => project.number == value);
+            projectId = (selectedProject) ? selectedProject._id : null;
+        }
+        if (projectId) {
+            setTasks(tasks.map(task => task.id == id ? { ...task, [name]: value, projectId } : task));
+        }
+        else {
+            setTasks(tasks.map(task => task.id == id ? { ...task, [name]: value } : task));
+        }
     }
 
     const addTask = () => {
-        setTasks(addRowNumber([...tasks, {
-            date: new Date().toISOString(),
-            projectId: '',
-            hour: 0
-        }]));
+        setTasks(setupTasks([...tasks, newTask]));
     }
 
     const deleteTask = (rowNumber) => {
-        setTasks(addRowNumber(tasks.filter((task) => task.rowNumber !== rowNumber)));
+        setTasks(setupTasks(tasks.filter((task) => task.rowNumber !== rowNumber)));
     }
 
-    const getTimesheet = (e) => {
-        e.preventDefault();
-        loadTimesheet();
+    const findError = (taskId, propertyName) => {
+        let error = errors.find(error => error.id == taskId);
+        return (error !== undefined) ? error[propertyName] : null;
     }
 
-    const save = (e) => {
-        e.preventDefault();
-        let tableError = validateTable(tasks)
-        if (tableError == null) {
-            setErrors([]);
-            // timesheet.tasks = tasks;
-            saveTimesheet({ ...timesheet, tasks });
-        }
-        else { setErrors(tableError) }
+    //Add row number, row unique id and project number
+    const setupTasks = (tasks) => {
+        return tasks.map((task, index) => {
+            if (!task.id) task = { ...task, id: uuid() }
+            let project = projects.find(project => project._id == task.projectId)
+            if (project) {
+                task = { ...task, projectNumber: project.number }
+            }
+            return { ...task, rowNumber: index + 1 };
+        })
     }
 
     return (
         <div>
             <TimesheetInformation
-                date={date}
-                setDate={setDate}
+                weekEnd={weekEnd}
                 getTimesheet={getTimesheet}
             /><br /><br /><br />
-            {tasks.length !== 0 &&
+            {weekEnd &&
                 <TimesheetTable
                     tasks={(tasks)}
+                    projectList={projects}
+                    findError={findError}
+                    handleChange={handleChange}
                     addRow={addTask}
                     deleteRow={deleteTask}
                     saveTable={save}
-                    handleChange={handleChange}
-                />
-            }<br /><br /><br />
-            {errors.length !== 0 &&
-                <TimesheetErrors
-                    errors={errors}
                 />
             }
         </div>
@@ -79,25 +111,26 @@ function TimesheetPage({ timesheet, loadTimesheet, saveTimesheet }) {
 
 TimesheetPage.propTypes = {
     timesheet: PropTypes.object.isRequired,
+    projects: PropTypes.array.isRequired,
     loadTimesheet: PropTypes.func.isRequired,
-    saveTimesheet: PropTypes.func.isRequired
+    saveTimesheet: PropTypes.func.isRequired,
+    loadProjects: PropTypes.func.isRequired
 };
 
-//add row number and row unique id
-const addRowNumber = (tableData) => {
-    return tableData.map((row, index) => {
-        if (row.id == null) row = { ...row, id: uuid() };
-        return { ...row, rowNumber: index + 1 };
-    })
+let newTask = {
+    date: new Date().toISOString(),
+    projectNumber: '',
+    hour: 0
 }
 
 function mapStateToProps(state) {
     return {
-        timesheet: state.timesheet
+        timesheet: state.timesheet,
+        projects: state.projects
     };
 }
 
-const mapDispatchToProps = { loadTimesheet, saveTimesheet };
+const mapDispatchToProps = { loadTimesheet, saveTimesheet, loadProjects };
 
 export default connect(
     mapStateToProps,
