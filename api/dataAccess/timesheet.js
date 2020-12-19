@@ -2,21 +2,18 @@ import TimesheetModel from './models/timesheet';
 import { connectdb } from './database';
 
 
-//Create new timesheet
 export const create = async weeklyHours => {
   connectdb();
   let timesheetInfo = new TimesheetModel(weeklyHours);
   return await timesheetInfo.save();
 }
 
-//Find timesheet
 export const find = async (weekEnding, userId) => {
   connectdb();
   return await TimesheetModel
     .findOne({ weekEnding: weekEnding, userId: userId })
 }
 
-//Update timesheet
 export const update = async weeklyHours => {
   connectdb();
   let query = { weekEnding: weeklyHours.weekEnding, userId: weeklyHours.userId };

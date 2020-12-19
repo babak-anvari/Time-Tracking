@@ -4,12 +4,11 @@ import ProjectInput from '../common/ProjectInput';
 
 const ProjectControl = ({ inputProject, projectList, handleChange }) => (
     <>
-        <p>Select project number</p>
         <ProjectInput
             projectList={projectList}
             Inputvalue={inputProject.projectNumber}
             handleChange={handleChange}
-        />
+        /><br />
     </>
 )
 

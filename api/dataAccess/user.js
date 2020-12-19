@@ -2,7 +2,6 @@ import UserModel from './models/user';
 import { connectdb, disConnectdb } from './database';
 import { User } from '../entities/user';
 
-//Create new user
 const create = async userInfo => {
   connectdb();
   let user = new UserModel(userInfo);
@@ -12,7 +11,6 @@ const create = async userInfo => {
   return user;
 }
 
-//Find User information by email.
 const findByEmail = async userEmail => {
   connectdb();
   let userinfo = await UserModel.findOne({ email: userEmail });
@@ -21,7 +19,6 @@ const findByEmail = async userEmail => {
   return user;
 }
 
-//Find User password by email.
 const checkpassword = async userEmail => {
   connectdb();
   let userinfo = await UserModel.findOne({ email: userEmail });
@@ -30,7 +27,6 @@ const checkpassword = async userEmail => {
   return user;
 }
 
-//Update user by ID and return updated information
 const update = async userInfo => {
   connectdb();
   let user = await UserModel.findByIdAndUpdate(
@@ -43,7 +39,6 @@ const update = async userInfo => {
     },
     { new: true }
   )
-  // disConnectdb();
 
   return user;
 }

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-import { loadProjects } from '../../redux/actions/projectActions';
+import { loadProjects, saveProject } from '../../redux/actions/projectActions';
 import ProjectControl from './ProjectControl';
 import ProjectForm from './ProjectForm';
 
-const ProjectPage = ({ projects, loadProjects }) => {
+const ProjectPage = ({ projects, loadProjects, saveProject }) => {
     let [projectList, setProjectList] = useState(projects);
     let [inputProject, setInputProject] = useState({ projectNumber: '', _id: '' });
     let [projectInfo, setProjectInfo] = useState({});
@@ -22,7 +22,9 @@ const ProjectPage = ({ projects, loadProjects }) => {
         let findProject = projectList.find(project => project._id == inputProject._id);
         (findProject)
             ? setProjectInfo(findProject)
-            : setProjectInfo({});
+            : setProjectInfo({
+                _id: null, number: inputProject.projectNumber, address: ''
+            });
     }, [inputProject])
 
     const handleProjectControlChange = (e) => {
@@ -40,16 +42,21 @@ const ProjectPage = ({ projects, loadProjects }) => {
         setProjectInfo(projectInfo);
     }
 
+    const save = () => {
+        saveProject(projectInfo);
+    }
+
     return (
         <div>
             <ProjectControl
                 inputProject={inputProject}
                 projectList={projectList}
                 handleChange={handleProjectControlChange}
-            />{projectInfo._id &&
+            />{projectInfo.number &&
                 <ProjectForm
                     projectInfo={projectInfo}
                     handleChange={handleProjectFormChange}
+                    save={save}
                 />
             }
         </div>
@@ -58,7 +65,8 @@ const ProjectPage = ({ projects, loadProjects }) => {
 
 ProjectPage.propTypes = {
     projects: PropTypes.array.isRequired,
-    loadProjects: PropTypes.func.isRequired
+    loadProjects: PropTypes.func.isRequired,
+    saveProject: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -67,7 +75,7 @@ function mapStateToProps(state) {
     };
 }
 
-const mapDispatchToProps = { loadProjects };
+const mapDispatchToProps = { loadProjects, saveProject };
 
 export default connect(
     mapStateToProps,

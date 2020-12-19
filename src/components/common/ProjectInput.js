@@ -7,6 +7,7 @@ const ProjectInput = ({ projectList, handleChange, Inputvalue, taskId, error }) 
             type='text'
             list='data'
             name='projectNumber'
+            placeholder='Project Name'
             required
             autoComplete="off"
             value={Inputvalue}

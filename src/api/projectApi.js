@@ -14,3 +14,14 @@ export const loadProjects = () => {
         .then(handleApiResponse)
         .catch(handleApiError)
 }
+
+export const saveProject = (project) => {
+    return axios({
+        method: project._id ? 'put' : 'post',
+        url: baseUrl,
+        headers: authHeader(),
+        data: project
+    })
+        .then(handleApiResponse)
+        .catch(handleApiError)
+}
