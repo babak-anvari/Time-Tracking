@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { userLogin } from '../../redux/actions/userActions';
 import UserLogin from './UserLogin';
 import UserProfile from './UserProfile';
+import UserSignUp from './UserSignUp';
 
 const UserPage = ({ currentUser, userLogin }) => {
     let [user, setUser] = useState({});
@@ -37,6 +38,13 @@ const UserPage = ({ currentUser, userLogin }) => {
                 <UserLogin
                     handleChange={handleChange}
                     loginUser={loginUser}
+                />
+            }
+            <br /><br /><br />
+            {!currentUser.id &&
+                <UserSignUp
+                    user={user}
+                    handleChange={handleChange}
                 />
             }
             {currentUser.id &&
