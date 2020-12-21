@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-import { userLogin, createUser } from '../../redux/actions/userActions';
+import { userLogin, createUser, updateUser } from '../../redux/actions/userActions';
 import UserLogin from './UserLogin';
 import UserProfile from './UserProfile';
 import UserSignUp from './UserSignUp';
 
-const UserPage = ({ currentUser, userLogin, createUser }) => {
+const UserPage = ({ currentUser, userLogin, createUser, updateUser }) => {
     let [user, setUser] = useState({});
 
     useEffect(() => {
@@ -37,26 +37,32 @@ const UserPage = ({ currentUser, userLogin, createUser }) => {
         createUser(user);
     }
 
+    const updateUserInformation = (e) => {
+        e.preventDefault();
+        updateUser(user);
+    }
+
     return (
         <div>
-            {!currentUser.id &&
+            {!currentUser._id &&
                 <UserLogin
                     handleChange={handleChange}
                     loginUser={loginUser}
                 />
             }
             <br /><br /><br />
-            {!currentUser.id &&
+            {!currentUser._id &&
                 <UserSignUp
                     user={user}
                     handleChange={handleChange}
                     createNewUser={createNewUser}
                 />
             }
-            {currentUser.id &&
+            {currentUser._id &&
                 <UserProfile
                     user={user}
                     handleChange={handleChange}
+                    updateUserInformation={updateUserInformation}
                 />
             }
         </div>
@@ -66,7 +72,8 @@ const UserPage = ({ currentUser, userLogin, createUser }) => {
 UserPage.propTypes = {
     currentUser: PropTypes.object.isRequired,
     userLogin: PropTypes.func.isRequired,
-    createUser: PropTypes.func.isRequired
+    createUser: PropTypes.func.isRequired,
+    updateUser: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -75,7 +82,7 @@ function mapStateToProps(state) {
     };
 }
 
-const mapDispatchToProps = { userLogin, createUser };
+const mapDispatchToProps = { userLogin, createUser, updateUser };
 
 export default connect(
     mapStateToProps,

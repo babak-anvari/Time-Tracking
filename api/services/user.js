@@ -1,4 +1,5 @@
 import * as dataAccess from '../dataAccess/user';
+import { User } from '../entities/user'
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
@@ -8,7 +9,8 @@ export const find = async (userEmail) => {
 }
 
 export const update = async (userInfo) => {
-    return await dataAccess.update(userInfo);
+    let user = new User(await dataAccess.update(userInfo));
+    return user;
 }
 
 export const login = async (req, res) => {
@@ -20,7 +22,8 @@ export const login = async (req, res) => {
     let token = jwt.sign({ email: user.email }, config.secret, {
         expiresIn: 3600
     });
-    return ({ user, token });
+    user = new User(user);
+    return ({ ...user, accessToken: token });
 }
 
 export const register = async (req, res, next) => {

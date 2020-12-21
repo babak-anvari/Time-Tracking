@@ -6,6 +6,7 @@ import * as projectServices from '../services/project';
 
 //Find timesheet
 router.get('/', ash(async (req, res) => {
+    console.log(req.body);
     let timesheet = await services.find(req.query.weekEnd, req.query.userId);
     res.send(timesheet);
 }))

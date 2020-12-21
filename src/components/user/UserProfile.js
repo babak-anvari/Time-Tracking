@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
-const UserProfile = ({ user, handleChange }) => (
+const UserProfile = ({ user, handleChange, updateUserInformation }) => (
     <>
-        <form>
+        <form on onSubmit={updateUserInformation}>
             <p>First Name:</p>
             <input
                 name='firstName'
@@ -36,14 +36,15 @@ const UserProfile = ({ user, handleChange }) => (
                 value={user.employmentDate}>
             </input>
             <br /><br /><br />
-            <button>Update user information</button>
+            <button type='submit'>Update user information</button>
         </form>
     </>
 )
 
 UserProfile.propTypes = {
     user: PropTypes.object.isRequired,
-    handleChange: PropTypes.func.isRequired
+    handleChange: PropTypes.func.isRequired,
+    updateUserInformation: PropTypes.func.isRequired
 };
 
 export default UserProfile;
