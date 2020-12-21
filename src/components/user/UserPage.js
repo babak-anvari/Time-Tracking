@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-import { userLogin } from '../../redux/actions/userActions';
-import UserLoginInfo from './UserLoginInfo';
+import { userLogin, createUser, updateUser } from '../../redux/actions/userActions';
+import UserLogin from './UserLogin';
 import UserProfile from './UserProfile';
+import UserSignUp from './UserSignUp';
 
-const UserPage = ({ currentUser, userLogin }) => {
+const UserPage = ({ currentUser, userLogin, createUser, updateUser }) => {
     let [user, setUser] = useState({});
+
+    useEffect(() => {
+        setUser(currentUser);
+    }, [currentUser]);
 
     const handleChange = (e) => {
         let { name, value } = e.target;
@@ -27,14 +32,38 @@ const UserPage = ({ currentUser, userLogin }) => {
         }
     }
 
+    const createNewUser = (e) => {
+        e.preventDefault();
+        createUser(user);
+    }
+
+    const updateUserInformation = (e) => {
+        e.preventDefault();
+        updateUser(user);
+    }
+
     return (
         <div>
-            <UserLoginInfo
-                handleChange={handleChange}
-                loginUser={loginUser}
-            /><br /><br />
-            {currentUser.id &&
-                <UserProfile currentUser={currentUser} />
+            {!currentUser._id &&
+                <UserLogin
+                    handleChange={handleChange}
+                    loginUser={loginUser}
+                />
+            }
+            <br /><br /><br />
+            {!currentUser._id &&
+                <UserSignUp
+                    user={user}
+                    handleChange={handleChange}
+                    createNewUser={createNewUser}
+                />
+            }
+            {currentUser._id &&
+                <UserProfile
+                    user={user}
+                    handleChange={handleChange}
+                    updateUserInformation={updateUserInformation}
+                />
             }
         </div>
     )
@@ -42,7 +71,9 @@ const UserPage = ({ currentUser, userLogin }) => {
 
 UserPage.propTypes = {
     currentUser: PropTypes.object.isRequired,
-    userLogin: PropTypes.func.isRequired
+    userLogin: PropTypes.func.isRequired,
+    createUser: PropTypes.func.isRequired,
+    updateUser: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -51,7 +82,7 @@ function mapStateToProps(state) {
     };
 }
 
-const mapDispatchToProps = { userLogin };
+const mapDispatchToProps = { userLogin, createUser, updateUser };
 
 export default connect(
     mapStateToProps,

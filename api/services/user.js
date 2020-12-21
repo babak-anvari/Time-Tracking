@@ -1,24 +1,18 @@
-const dataAccess = require('../dataAccess/user');
+import * as dataAccess from '../dataAccess/user';
+import { User } from '../entities/user'
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import config from '../config/config';
 
-//Create new user
-export const create = async (user) => {
-    return await dataAccess.create(user);
-}
-
-//Find User information with unique email.
 export const find = async (userEmail) => {
-    return await dataAccess.findByEmail(userEmail);
+    return await dataAccess.find(userEmail);
 }
 
-//Update user
 export const update = async (userInfo) => {
-    return await dataAccess.update(userInfo);
+    let user = new User(await dataAccess.update(userInfo));
+    return user;
 }
 
-//User login
 export const login = async (req, res) => {
     let { email, password } = req.body;
     let user = await dataAccess.checkpassword(email);
@@ -26,19 +20,19 @@ export const login = async (req, res) => {
     let passwordIsValid = bcrypt.compareSync(password, user.password);
     if (!passwordIsValid) res.appError('Invalid password', 401);
     let token = jwt.sign({ email: user.email }, config.secret, {
-        expiresIn: 3600 // 3 minutes
+        expiresIn: 3600
     });
-    return ({ user, token });
+    user = new User(user);
+    return ({ ...user, accessToken: token });
 }
 
-//User Register
 export const register = async (req, res, next) => {
     let user = req.body;
-    let existingUser = await find(user.email);
+    let existingUser = await dataAccess.find(user.email);
     if (existingUser) res.appError('There is already a user with the same email', 400);
     user.password = bcrypt.hashSync(user.password, 8);
     try {
-        user = await create(user);
+        user = await dataAccess.create(user);
         return (user);
     }
     catch (err) {

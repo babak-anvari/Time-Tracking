@@ -9,6 +9,10 @@ export default function userReducer(state = initialState.user, action) {
             return action.user;
         case types.userSignOutSuccess:
             return {};
+        case types.CREATE_USER_SUCCESS:
+            return {};
+        case types.UPDATE_USER_SUCCESS:
+            return { ...state, ...action.user };
         default:
             return state;
     }

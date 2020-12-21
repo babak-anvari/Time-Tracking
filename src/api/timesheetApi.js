@@ -10,7 +10,7 @@ export const getTimesheet = (weekEnd) => {
         url: baseUrl,
         params: {
             weekEnd,
-            userId: JSON.parse(localStorage.getItem('user')).id
+            userId: JSON.parse(localStorage.getItem('user'))._id
         }
     })
         .then(handleApiResponse)

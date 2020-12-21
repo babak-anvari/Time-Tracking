@@ -13,6 +13,14 @@ export const userSignOutSuccess = () => {
     return { type: types.userSignOutSuccess }
 }
 
+export const createUserSuccess = (user) => {
+    return { type: types.CREATE_USER_SUCCESS, user }
+}
+
+export const updateUserSuccess = (user) => {
+    return { type: types.UPDATE_USER_SUCCESS, user }
+}
+
 export function userLogin(user) {
     return function (dispatch) {
         return userApi
@@ -38,4 +46,30 @@ export function userSignOut() {
         localStorage.removeItem("user");
         dispatch(userSignOutSuccess());
     }
+}
+
+export function createUser(user) {
+    return function (dispatch) {
+        return userApi
+            .createUser(user)
+            .then(user => {
+                dispatch(createUserSuccess(user));
+            })
+            .catch(error => {
+                throw error;
+            })
+    };
+}
+
+export function updateUser(user) {
+    return function (dispatch) {
+        return userApi
+            .updateUser(user)
+            .then(user => {
+                dispatch(updateUserSuccess(user));
+            })
+            .catch(error => {
+                throw error;
+            })
+    };
 }
