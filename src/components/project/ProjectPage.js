@@ -47,7 +47,7 @@ const ProjectPage = ({ projects, loadProjects, saveProject }) => {
     }
 
     return (
-        <div>
+        <div className='jumbotron'>
             <ProjectControl
                 inputProject={inputProject}
                 projectList={projectList}

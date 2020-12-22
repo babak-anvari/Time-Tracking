@@ -15,6 +15,7 @@ const TimesheetTable = ({ tasks, projectList, addRow, deleteRow, saveTable, hand
                     <th>Date</th>
                     <th>Project</th>
                     <th>Hour</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -48,14 +49,14 @@ const TimesheetTable = ({ tasks, projectList, addRow, deleteRow, saveTable, hand
                             />
                         </td>
                         <td>
-                            <button onClick={() => deleteRow(task.rowNumber)}>Delete</button>
+                            <button onClick={() => deleteRow(task.rowNumber)} className='btn btn-dark btn-sm'>Delete</button>
                         </td>
                     </tr>
                 ))}
             </tbody>
         </table >
-        <button type='button' onClick={saveTable}>Save</button>
-        <button type='button' onClick={addRow}>Add Task</button><br /><br />
+        <button type='button' onClick={saveTable} className='btn btn-primary btn-st'>Save</button><br /><br />
+        <button type='button' onClick={addRow} className='btn btn-primary btn-st'>Add Task</button>
     </>
 )
 

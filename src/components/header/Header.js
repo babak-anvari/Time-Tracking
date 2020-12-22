@@ -3,10 +3,11 @@ import { connect } from 'react-redux';
 import { NavLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import { userRenewLogin, userSignOut } from '../../redux/actions/userActions'
+import getToken from '../../utils/getToken';
 
 const Header = ({ currentUser, userRenewLogin, userSignOut }) => {
     useEffect(() => {
-        let user = JSON.parse(localStorage.getItem('user'));
+        let user = getToken();
         user ? userRenewLogin(user) : console.log('not logged in');
     }, [])
     const activeStyle = { color: "#F15B2A" };

@@ -50,7 +50,7 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
     const handleChange = (e, id) => {
         let { name, value } = e.target;
         let projectId = null;
-        value = (name === 'hour') ? parseInt(value, 10) : value;
+        // value = (name === 'hour') ? parseInt(value, 10) : value;
         if (name === 'projectNumber') {
             let selectedProject = projects.find(project => project.number == value);
             projectId = (selectedProject) ? selectedProject._id : null;
@@ -89,7 +89,7 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
     }
 
     return (
-        <div>
+        <div className='jumbotron'>
             <TimesheetInformation
                 weekEnd={weekEnd}
                 getTimesheet={getTimesheet}

@@ -7,7 +7,9 @@ const ProjectForm = ({ projectInfo, handleChange, save }) => (
         <form>
             <input onChange={handleChange} name={'number'} value={projectInfo.number} placeholder='Project Name'></input><br /><br />
             <input onChange={handleChange} name={'address'} value={projectInfo.address} placeholder='address'></input><br /><br />
-            <button onClick={save}>{projectInfo._id ? 'Update Project Information' : 'Create New Project'}</button>
+            <button onClick={save} className='btn btn-primary btn-sm'>
+                {projectInfo._id ? 'Update Project Information' : 'Create New Project'}
+            </button>
         </form>
     </>
 )

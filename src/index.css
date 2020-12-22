@@ -6,3 +6,23 @@
 nav {
   padding: 20px 0 20px 0;
 }
+
+.form-inline {
+  width: 100%;
+}
+
+.form-group {
+  width: 90%;
+}
+
+.input-group {
+  width: 90% !important;
+}
+
+.form-control {
+  width: 30% !important;
+}
+
+span.input-group-addon {
+  width: 50px !important;
+}

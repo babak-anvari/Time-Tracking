@@ -18,8 +18,8 @@ const UserLogin = ({ handleChange, loginUser, setState }) => (
             name='password'
             onChange={handleChange}
         /><br />
-        <button type='submit' className='btn btn-primary btn-st'>Sign in</button><br /><br />
-        <button className='btn btn-primary btn-st' onClick={() => setState({ newUser: true })}>Create account</button>
+        <button type='submit' className='btn btn-primary btn-sm'>Sign in</button><br /><br />
+        <button className='btn btn-primary btn-sm' onClick={() => setState({ newUser: true })}>Create account</button>
     </form>
 )
 
