@@ -39,7 +39,7 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
             timesheet = {
                 ...timesheet,
                 weekEnd,
-                userId: JSON.parse(localStorage.getItem('user')).id,
+                userId: JSON.parse(localStorage.getItem('user'))._id,
                 tasks
             }
             saveTimesheet(timesheet);

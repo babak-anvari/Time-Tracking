@@ -1,28 +1,32 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
-const UserLogin = ({ handleChange, loginUser }) => (
-    <form onSubmit={loginUser}>
-        <p>Please enter your email and password to sign in</p>
+const UserLogin = ({ handleChange, loginUser, setState }) => (
+    <form onSubmit={loginUser} >
+        <p>Enter your email and password to sign in.</p>
         <input
-            type='text'
+            type='email'
+            className="form-control"
             placeholder='email'
             name='email'
-            onChange={handleChange}>
-        </input><br /><br />
+            onChange={handleChange}
+        />
         <input
             type='password'
+            className="form-control"
             placeholder='password'
             name='password'
-            onChange={handleChange}>
-        </input><br /><br />
-        <button type='submit'>Sign in</button>
+            onChange={handleChange}
+        /><br />
+        <button type='submit' className='btn btn-primary btn-st'>Sign in</button><br /><br />
+        <button className='btn btn-primary btn-st' onClick={() => setState({ newUser: true })}>Create account</button>
     </form>
 )
 
 UserLogin.propTypes = {
     handleChange: PropTypes.func.isRequired,
-    loginUser: PropTypes.func.isRequired
+    loginUser: PropTypes.func.isRequired,
+    setState: PropTypes.func.isRequired,
 };
 
 export default UserLogin;

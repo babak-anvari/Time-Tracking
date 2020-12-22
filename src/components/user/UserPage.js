@@ -7,6 +7,9 @@ import UserProfile from './UserProfile';
 import UserSignUp from './UserSignUp';
 
 const UserPage = ({ currentUser, userLogin, createUser, updateUser }) => {
+    let [state, setState] = useState({
+        newUser: false,
+    });
     let [user, setUser] = useState({});
 
     useEffect(() => {
@@ -20,7 +23,7 @@ const UserPage = ({ currentUser, userLogin, createUser, updateUser }) => {
 
     const loginUser = async (e) => {
         e.preventDefault();
-        if (!user.email || !user.password) alert('Enter email and passworddd');
+        if (!user.email || !user.password) alert('Enter email and password');
         else {
             try {
                 userLogin(user);
@@ -43,19 +46,20 @@ const UserPage = ({ currentUser, userLogin, createUser, updateUser }) => {
     }
 
     return (
-        <div>
-            {!currentUser._id &&
+        <div className='jumbotron'>
+            {!currentUser._id && !state.newUser &&
                 <UserLogin
                     handleChange={handleChange}
                     loginUser={loginUser}
+                    setState={setState}
                 />
             }
-            <br /><br /><br />
-            {!currentUser._id &&
+            {!currentUser._id && state.newUser &&
                 <UserSignUp
                     user={user}
                     handleChange={handleChange}
                     createNewUser={createNewUser}
+                    setState={setState}
                 />
             }
             {currentUser._id &&

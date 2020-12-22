@@ -4,14 +4,15 @@ import PropTypes from "prop-types";
 const UserProfile = ({ user, handleChange, updateUserInformation }) => (
     <>
         <form on onSubmit={updateUserInformation}>
-            <p>First Name:</p>
-            <input
-                name='firstName'
-                autoComplete='off'
-                onChange={handleChange}
-                value={user.firstName}>
-            </input>
-            <br /><br /><br />
+            <div className="form-group">
+                <label>First Name:</label>
+                <input
+                    name='firstName'
+                    autoComplete='off'
+                    onChange={handleChange}
+                    value={user.firstName}>
+                </input>
+            </div>
             <p>Last Name:</p>
             <input
                 name='lastName'
