@@ -15,7 +15,7 @@ const HourInput = ({ handleChange, Inputvalue, taskId, error }) => (
         >
         </input>
         {error &&
-            <p style={{ color: 'red' }}>{error}</p>
+            <p1 style={{ color: 'red' }}><small>{error}</small></p1>
         }
     </>
 )

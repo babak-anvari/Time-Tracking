@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const { string } = require('prop-types');
 
 let schema = new mongoose.Schema({
     weekEnd: Date,
@@ -21,6 +22,7 @@ let schema = new mongoose.Schema({
             activity: String,
             category: String,
             transactionText: String,
+            detail: String,
             hour: Number,
         }
     ]

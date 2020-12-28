@@ -21,7 +21,7 @@ const ProjectInput = ({ projectList, handleChange, Inputvalue, taskId, error }) 
         </datalist>
         {
             error &&
-            <p style={{ color: 'red' }}>{error}</p>
+            <p style={{ color: 'red' }}><small>{error}</small></p>
         }
 
     </>

@@ -14,7 +14,9 @@ const TimesheetTable = ({ tasks, projectList, addRow, deleteRow, saveTable, hand
                     <th>Task Number</th>
                     <th>Date</th>
                     <th>Project</th>
+                    <th>Action</th>
                     <th>Hour</th>
+                    <th>Detail</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -41,11 +43,28 @@ const TimesheetTable = ({ tasks, projectList, addRow, deleteRow, saveTable, hand
                             />
                         </td>
                         <td>
+                            <ProjectInput
+                                projectList={projectList}
+                                Inputvalue={task.projectNumber}
+                                handleChange={handleChange}
+                                error={findError(task.id, 'projectNumberError')}
+                                taskId={task.id}
+                            />
+                        </td>
+                        <td>
                             <HourInput
                                 Inputvalue={task.hour}
                                 handleChange={handleChange}
                                 error={findError(task.id, 'hourError')}
                                 taskId={task.id}
+                            />
+                        </td>
+                        <td>
+                            <textarea
+                                name='detail'
+                                type="text"
+                                onChange={(e) => handleChange(e, task.id)}
+                                value={task.detail}
                             />
                         </td>
                         <td>
