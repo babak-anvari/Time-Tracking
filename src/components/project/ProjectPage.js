@@ -9,6 +9,15 @@ const ProjectPage = ({ projects, loadProjects, saveProject }) => {
     let [projectList, setProjectList] = useState(projects);
     let [inputProject, setInputProject] = useState({ projectNumber: '', _id: '' });
     let [projectInfo, setProjectInfo] = useState({});
+    let [action, setAction] = useState({});
+
+    let actionItems = [
+        { _id: 1001, name: 'Choose an action' },
+        { _id: 122, name: 'Define project' },
+        { _id: 123, name: 'Development' },
+        { _id: 124, name: 'Code review' },
+        { _id: 125, name: 'Pull request' }
+    ];
 
     useEffect(() => {
         loadProjects();
@@ -42,8 +51,31 @@ const ProjectPage = ({ projects, loadProjects, saveProject }) => {
         setProjectInfo(projectInfo);
     }
 
+    const handleActionChange = (e) => {
+        let { value: _id } = e.target;
+        setAction(actionItems.find(action => action._id == _id));
+    }
+
     const save = () => {
         saveProject(projectInfo);
+    }
+
+    const addAction = (e) => {
+        e.preventDefault();
+        projectInfo = {
+            ...projectInfo,
+            actions: [
+                ...projectInfo.actions, action
+            ]
+        }
+        setProjectInfo(projectInfo);
+    }
+
+    const deleteAction = (e, _id) => {
+        e.preventDefault();
+        let actions = projectInfo.actions.filter(action => action._id !== _id);
+        projectInfo = { ...projectInfo, actions };
+        setProjectInfo(projectInfo);
     }
 
     return (
@@ -55,7 +87,11 @@ const ProjectPage = ({ projects, loadProjects, saveProject }) => {
             />{projectInfo.number &&
                 <ProjectForm
                     projectInfo={projectInfo}
+                    actionItems={actionItems}
                     handleChange={handleProjectFormChange}
+                    handleActionChange={handleActionChange}
+                    addAction={addAction}
+                    deleteAction={deleteAction}
                     save={save}
                 />
             }

@@ -17,7 +17,6 @@ const TimesheetTable = ({ tasks, projectList, addRow, deleteRow, saveTable, hand
                     <th>Action</th>
                     <th>Hour</th>
                     <th>Detail</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>

@@ -10,7 +10,13 @@ const ProjectModel = model(
         },
         customerId: String,
         address: String,
-        actions: Array,
+        actions: [
+            {
+                _id: Number,
+                name: String
+            }
+
+        ],
         type: String,
     })
 );
