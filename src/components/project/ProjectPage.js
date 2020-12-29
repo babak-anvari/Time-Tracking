@@ -13,10 +13,10 @@ const ProjectPage = ({ projects, loadProjects, saveProject }) => {
 
     let actionItems = [
         { _id: 1001, name: 'Choose an action' },
-        { _id: 122, name: 'Define project' },
-        { _id: 123, name: 'Development' },
-        { _id: 124, name: 'Code review' },
-        { _id: 125, name: 'Pull request' }
+        { _id: 1000001, name: 'Define project' },
+        { _id: 1000002, name: 'Development' },
+        { _id: 1000003, name: 'Code review' },
+        { _id: 1000004, name: 'Pull request' }
     ];
 
     useEffect(() => {

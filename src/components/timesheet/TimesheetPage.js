@@ -12,6 +12,14 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
     let [weekEnd, setWeekEnd] = useState(null);
     let [errors, setErrors] = useState([]);
 
+    let actionItems = [
+        { _id: 1001, name: 'Choose an action' },
+        { _id: 1000001, name: 'Define project' },
+        { _id: 1000002, name: 'Development' },
+        { _id: 1000003, name: 'Code review' },
+        { _id: 1000004, name: 'Pull request' }
+    ];
+
     useEffect(() => {
         loadProjects();
     }, [])
@@ -98,6 +106,7 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
                 <TimesheetTable
                     tasks={(tasks)}
                     projectList={projects}
+                    actionItems={actionItems}
                     findError={findError}
                     handleChange={handleChange}
                     addRow={addTask}
