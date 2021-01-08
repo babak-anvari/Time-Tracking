@@ -105,7 +105,7 @@ const ProjectPage = ({ projects, actions, loadProjects, saveProject, loadActions
 
 ProjectPage.propTypes = {
     projects: PropTypes.array,
-    actions: PropTypes.array,
+    actions: PropTypes.object,
     loadProjects: PropTypes.func.isRequired,
     saveProject: PropTypes.func.isRequired,
     loadActions: PropTypes.func.isRequired,

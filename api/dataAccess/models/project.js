@@ -1,4 +1,5 @@
-import { model, Schema } from 'mongoose';
+// const mongoose = require('mongoose');
+import mongoose, { model, Schema } from 'mongoose';
 
 const ProjectModel = model(
     "projects",
@@ -12,8 +13,10 @@ const ProjectModel = model(
         address: String,
         actions: [
             {
-                _id: Number,
-                name: String
+                actionId: {
+                    type: mongoose.Schema.Types.ObjectId,
+                    ref: "actions"
+                }
             }
 
         ],
