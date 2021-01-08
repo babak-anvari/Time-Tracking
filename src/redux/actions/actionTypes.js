@@ -6,4 +6,6 @@ export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
 export const userRenewLoginSuccess = 'userRenewLoginSuccess';
 export const userSignOutSuccess = 'userSignOutSuccess';
 export const loadProjectsSuccess = 'loadProjectsSuccess';
+export const LOAD_ACTIONS_SUCCESS = 'LOAD_ACTIONS_SUCCESS';
+export const SAVE_ACTIONS_SUCCESS = 'SAVE_ACTIONS_SUCCESS';
 export const saveProjectSuccess = 'saveProjectSuccess';

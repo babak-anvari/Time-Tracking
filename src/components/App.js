@@ -7,6 +7,7 @@ import PageNotFound from './PageNotFound';
 import TimesheetPage from './timesheet/TimesheetPage';
 import UserPage from './user/UserPage';
 import ProjectPage from './project/ProjectPage';
+import ActionItems from './actions/ActionItems';
 
 const App = () => (
     <div className='container-fluid'>
@@ -17,6 +18,7 @@ const App = () => (
             <Route path='/user' component={UserPage} />
             <Route path='/project' component={ProjectPage} />
             <Route path='/timesheet' component={TimesheetPage} />
+            <Route path='/action' component={ActionItems} />
             <Route component={PageNotFound} />
         </Switch>
     </div>
