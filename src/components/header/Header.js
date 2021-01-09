@@ -23,6 +23,8 @@ const Header = ({ currentUser, userRenewLogin, userSignOut }) => {
                     {" | "}
                     <NavLink to="/project" activeStyle={activeStyle}>Project</NavLink>
                     {" | "}
+                    <NavLink to="/action" activeStyle={activeStyle}>Action</NavLink>
+                    {" | "}
                     <NavLink to="/timesheet" activeStyle={activeStyle}>Timesheet</NavLink>
                     {" | "}
                     <NavLink to="/user" onClick={userSignOut}>Sign out</NavLink>
