@@ -26,7 +26,9 @@ const ProjectPage = ({ projects, actions, loadProjects, saveProject, loadActions
     }, [projects])
 
     useEffect(() => {
+        // debugger;
         if (actions.actions) {
+            setAction(actions.actions[0]);
             setActionItems(actions.actions);
         }
     }, [actions])
@@ -71,6 +73,13 @@ const ProjectPage = ({ projects, actions, loadProjects, saveProject, loadActions
             actions: [
                 ...projectInfo.actions, action
             ]
+        }
+        let remainingActions = actionItems.filter(action => {
+            let assignedAction = projectInfo.actions.find(projectAction => projectAction._id == action._id);
+            return !assignedAction ? true : false;
+        })
+        if (remainingActions.length > 0) {
+            setAction(remainingActions[0]);
         }
         setProjectInfo(projectInfo);
     }

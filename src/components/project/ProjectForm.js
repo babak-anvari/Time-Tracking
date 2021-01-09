@@ -17,7 +17,7 @@ const ProjectForm = ({ projectInfo, actionItems, handleChange, handleActionChang
                         <tbody>
                             {projectInfo.actions.map(action => (
                                 <tr key={action._id}>
-                                    <td >{action.name}</td>
+                                    <td >{actionItems.find(eachAction => eachAction._id == action._id).name}</td>
                                     <td>
                                         <button
                                             className='btn btn-dark btn-sm'
