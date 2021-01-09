@@ -7,18 +7,20 @@ import PropTypes from "prop-types";
 import TimesheetTable from './TimesheetTable';
 import TimesheetInformation from './TimesheetInformation';
 import validateTasks from './validateTasks';
-function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, loadProjects }) {
+import { loadActions } from '../../redux/actions/actionItemsActions';
+function TimesheetPage({ timesheet, projects, actions, loadTimesheet, saveTimesheet, loadProjects, loadActions }) {
     let [tasks, setTasks] = useState(timesheet.tasks);
     let [weekEnd, setWeekEnd] = useState(null);
     let [errors, setErrors] = useState([]);
+    let [actionItems, setActionItems] = useState([]);
 
-    let actionItems = [
-        { _id: 1001, name: 'Choose an action' },
-        { _id: 1000001, name: 'Define project' },
-        { _id: 1000002, name: 'Development' },
-        { _id: 1000003, name: 'Code review' },
-        { _id: 1000004, name: 'Pull request' }
-    ];
+    useEffect(() => {
+        loadActions();
+    }, [])
+
+    useEffect(() => {
+        setActionItems(actions.actions);
+    }, [actions])
 
     useEffect(() => {
         loadProjects();
@@ -121,9 +123,11 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
 TimesheetPage.propTypes = {
     timesheet: PropTypes.object.isRequired,
     projects: PropTypes.array.isRequired,
+    actions: PropTypes.object,
     loadTimesheet: PropTypes.func.isRequired,
     saveTimesheet: PropTypes.func.isRequired,
-    loadProjects: PropTypes.func.isRequired
+    loadProjects: PropTypes.func.isRequired,
+    loadActions: PropTypes.func.isRequired
 };
 
 let newTask = {
@@ -135,11 +139,12 @@ let newTask = {
 function mapStateToProps(state) {
     return {
         timesheet: state.timesheet,
-        projects: state.projects
+        projects: state.projects,
+        actions: state.actions
     };
 }
 
-const mapDispatchToProps = { loadTimesheet, saveTimesheet, loadProjects };
+const mapDispatchToProps = { loadTimesheet, saveTimesheet, loadProjects, loadActions };
 
 export default connect(
     mapStateToProps,

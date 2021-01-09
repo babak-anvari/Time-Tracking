@@ -48,13 +48,15 @@ const TimesheetTable = ({ tasks, projectList, actionItems, addRow, deleteRow, sa
                                     value={actionItems.find(action => action._id == task.actionId) &&
                                         actionItems.find(action => action._id == task.actionId)._id}
                                     onChange={(e) => handleChange(e, task.id)}>
-                                    {projectList.find(project => project._id == task.projectId).actions.map(action =>
-                                        <option
-                                            value={action._id}
-                                            key={action._id}>
-                                            {action.name}
-                                        </option>
-                                    )}
+                                    {projectList.find(project => project._id == task.projectId)
+                                        .actions
+                                        .map(action =>
+                                            <option
+                                                value={action._id}
+                                                key={action._id}>
+                                                {actionItems.find(eachAction => eachAction._id == action._id).name}
+                                            </option>
+                                        )}
                                 </select>
                             }
                             {
