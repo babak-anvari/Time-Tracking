@@ -6,7 +6,7 @@ import ProjectInput from '../common/ProjectInput';
 import HourInput from '../common/HourInput';
 import parseISO from 'date-fns/parseISO';
 
-const TimesheetTable = ({ tasks, projectList, addRow, deleteRow, saveTable, handleChange, findError }) => (
+const TimesheetTable = ({ tasks, projectList, actionItems, addRow, deleteRow, saveTable, handleChange, findError }) => (
     <>
         <table className="table">
             <thead>
@@ -14,7 +14,9 @@ const TimesheetTable = ({ tasks, projectList, addRow, deleteRow, saveTable, hand
                     <th>Task Number</th>
                     <th>Date</th>
                     <th>Project</th>
+                    <th>Action</th>
                     <th>Hour</th>
+                    <th>Detail</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,6 +42,31 @@ const TimesheetTable = ({ tasks, projectList, addRow, deleteRow, saveTable, hand
                             />
                         </td>
                         <td>
+                            {task.projectId &&
+                                <select
+                                    name='actionId'
+                                    value={actionItems.find(action => action._id == task.actionId) &&
+                                        actionItems.find(action => action._id == task.actionId)._id}
+                                    onChange={(e) => handleChange(e, task.id)}>
+                                    {projectList.find(project => project._id == task.projectId)
+                                        .actions
+                                        .map(action =>
+                                            <option
+                                                value={action._id}
+                                                key={action._id}>
+                                                {actionItems.find(eachAction => eachAction._id == action._id).name}
+                                            </option>
+                                        )}
+                                </select>
+                            }
+                            {
+                                !task.project || !task.project.actions.length > 0 &&
+                                <select>
+                                    <option>Project action</option>
+                                </select>
+                            }
+                        </td>
+                        <td>
                             <HourInput
                                 Inputvalue={task.hour}
                                 handleChange={handleChange}
@@ -48,20 +75,29 @@ const TimesheetTable = ({ tasks, projectList, addRow, deleteRow, saveTable, hand
                             />
                         </td>
                         <td>
-                            <button onClick={() => deleteRow(task.rowNumber)}>Delete</button>
+                            <textarea
+                                name='detail'
+                                type="text"
+                                onChange={(e) => handleChange(e, task.id)}
+                                value={task.detail}
+                            />
+                        </td>
+                        <td>
+                            <button onClick={() => deleteRow(task.rowNumber)} className='btn btn-dark btn-sm'>Delete</button>
                         </td>
                     </tr>
                 ))}
             </tbody>
         </table >
-        <button type='button' onClick={saveTable}>Save</button>
-        <button type='button' onClick={addRow}>Add Task</button><br /><br />
+        <button type='button' onClick={saveTable} className='btn btn-primary btn-st'>Save</button><br /><br />
+        <button type='button' onClick={addRow} className='btn btn-primary btn-st'>Add Task</button>
     </>
 )
 
 TimesheetTable.propTypes = {
     tasks: PropTypes.array.isRequired,
     projectList: PropTypes.array.isRequired,
+    actionItems: PropTypes.array.isRequired,
     findError: PropTypes.func.isRequired,
     addRow: PropTypes.func.isRequired,
     deleteRow: PropTypes.func.isRequired,

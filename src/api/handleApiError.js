@@ -5,6 +5,8 @@ const handleApiError = (error) => {
         switch (data) {
             case ('Timesheet already exist'):
                 throw ('Timesheet already exist');
+            case ('actions ID is not specified'):
+                throw ('Action ID is required to make changes to the database');
         }
 
     }

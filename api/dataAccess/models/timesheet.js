@@ -13,14 +13,19 @@ let schema = new mongoose.Schema({
     },
     tasks: [
         {
-            date: Date,
             projectId: {
                 type: mongoose.Schema.Types.ObjectId,
                 ref: "projects"
             },
+            actionId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "actions"
+            },
+            date: Date,
             activity: String,
             category: String,
             transactionText: String,
+            detail: String,
             hour: Number,
         }
     ]

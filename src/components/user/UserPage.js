@@ -1,13 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
-import { userLogin, createUser, updateUser } from '../../redux/actions/userActions';
+import { userLogin, createUser, updateUser, userSignOut } from '../../redux/actions/userActions';
 import UserLogin from './UserLogin';
 import UserProfile from './UserProfile';
 import UserSignUp from './UserSignUp';
+// import getToken from '../../utils/getToken';
 
-const UserPage = ({ currentUser, userLogin, createUser, updateUser }) => {
+const UserPage = ({ currentUser, userLogin, createUser, updateUser, userSignOut }) => {
+    let [state, setState] = useState({
+        newUser: false,
+    });
     let [user, setUser] = useState({});
+    console.log(user);
+
+    // useEffect(() => {
+    //     console.log(getToken())
+    //     setUser(getToken());
+    // }, [])
 
     useEffect(() => {
         setUser(currentUser);
@@ -20,7 +30,7 @@ const UserPage = ({ currentUser, userLogin, createUser, updateUser }) => {
 
     const loginUser = async (e) => {
         e.preventDefault();
-        if (!user.email || !user.password) alert('Enter email and passworddd');
+        if (!user.email || !user.password) alert('Enter email and password');
         else {
             try {
                 userLogin(user);
@@ -41,24 +51,24 @@ const UserPage = ({ currentUser, userLogin, createUser, updateUser }) => {
         e.preventDefault();
         updateUser(user);
     }
-
     return (
-        <div>
-            {!currentUser._id &&
+        <div className='jumbotron'>
+            {!user._id && !state.newUser &&
                 <UserLogin
                     handleChange={handleChange}
                     loginUser={loginUser}
+                    setState={setState}
                 />
             }
-            <br /><br /><br />
-            {!currentUser._id &&
+            {!user._id && state.newUser &&
                 <UserSignUp
                     user={user}
                     handleChange={handleChange}
                     createNewUser={createNewUser}
+                    setState={setState}
                 />
             }
-            {currentUser._id &&
+            {user._id &&
                 <UserProfile
                     user={user}
                     handleChange={handleChange}
@@ -73,7 +83,8 @@ UserPage.propTypes = {
     currentUser: PropTypes.object.isRequired,
     userLogin: PropTypes.func.isRequired,
     createUser: PropTypes.func.isRequired,
-    updateUser: PropTypes.func.isRequired
+    updateUser: PropTypes.func.isRequired,
+    userSignOut: PropTypes.func.isRequired
 };
 
 function mapStateToProps(state) {
@@ -82,7 +93,7 @@ function mapStateToProps(state) {
     };
 }
 
-const mapDispatchToProps = { userLogin, createUser, updateUser };
+const mapDispatchToProps = { userLogin, createUser, updateUser, userSignOut };
 
 export default connect(
     mapStateToProps,

@@ -4,19 +4,34 @@ import PropTypes from "prop-types";
 import { loadProjects, saveProject } from '../../redux/actions/projectActions';
 import ProjectControl from './ProjectControl';
 import ProjectForm from './ProjectForm';
+import { loadActions } from '../../redux/actions/actionItemsActions';
 
-const ProjectPage = ({ projects, loadProjects, saveProject }) => {
-    let [projectList, setProjectList] = useState(projects);
+const ProjectPage = ({ projects, actions, loadProjects, saveProject, loadActions }) => {
+    let [projectList, setProjectList] = useState([]);
     let [inputProject, setInputProject] = useState({ projectNumber: '', _id: '' });
     let [projectInfo, setProjectInfo] = useState({});
+    let [action, setAction] = useState({});
+    let [actionItems, setActionItems] = useState([]);
 
     useEffect(() => {
         loadProjects();
     }, [])
 
     useEffect(() => {
+        loadActions();
+    }, [])
+
+    useEffect(() => {
         setProjectList(projects);
     }, [projects])
+
+    useEffect(() => {
+        // debugger;
+        if (actions.actions) {
+            setAction(actions.actions[0]);
+            setActionItems(actions.actions);
+        }
+    }, [actions])
 
     useEffect(() => {
         let findProject = projectList.find(project => project._id == inputProject._id);
@@ -42,12 +57,42 @@ const ProjectPage = ({ projects, loadProjects, saveProject }) => {
         setProjectInfo(projectInfo);
     }
 
+    const handleActionChange = (e) => {
+        let { value: _id } = e.target;
+        setAction(actionItems.find(action => action._id == _id));
+    }
+
     const save = () => {
         saveProject(projectInfo);
     }
 
+    const addAction = (e) => {
+        e.preventDefault();
+        projectInfo = {
+            ...projectInfo,
+            actions: [
+                ...projectInfo.actions, action
+            ]
+        }
+        let remainingActions = actionItems.filter(action => {
+            let assignedAction = projectInfo.actions.find(projectAction => projectAction._id == action._id);
+            return !assignedAction ? true : false;
+        })
+        if (remainingActions.length > 0) {
+            setAction(remainingActions[0]);
+        }
+        setProjectInfo(projectInfo);
+    }
+
+    const deleteAction = (e, _id) => {
+        e.preventDefault();
+        let actions = projectInfo.actions.filter(action => action._id !== _id);
+        projectInfo = { ...projectInfo, actions };
+        setProjectInfo(projectInfo);
+    }
+
     return (
-        <div>
+        <div className='jumbotron'>
             <ProjectControl
                 inputProject={inputProject}
                 projectList={projectList}
@@ -55,7 +100,11 @@ const ProjectPage = ({ projects, loadProjects, saveProject }) => {
             />{projectInfo.number &&
                 <ProjectForm
                     projectInfo={projectInfo}
+                    actionItems={actionItems}
                     handleChange={handleProjectFormChange}
+                    handleActionChange={handleActionChange}
+                    addAction={addAction}
+                    deleteAction={deleteAction}
                     save={save}
                 />
             }
@@ -64,18 +113,21 @@ const ProjectPage = ({ projects, loadProjects, saveProject }) => {
 }
 
 ProjectPage.propTypes = {
-    projects: PropTypes.array.isRequired,
+    projects: PropTypes.array,
+    actions: PropTypes.object,
     loadProjects: PropTypes.func.isRequired,
-    saveProject: PropTypes.func.isRequired
+    saveProject: PropTypes.func.isRequired,
+    loadActions: PropTypes.func.isRequired,
 };
 
 function mapStateToProps(state) {
     return {
-        projects: state.projects
+        projects: state.projects,
+        actions: state.actions
     };
 }
 
-const mapDispatchToProps = { loadProjects, saveProject };
+const mapDispatchToProps = { loadProjects, saveProject, loadActions };
 
 export default connect(
     mapStateToProps,

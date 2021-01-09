@@ -1,5 +1,5 @@
 import ProjectModel from './models/project';
-import { connectdb, disConnectdb } from './database';
+import { connectdb } from './database';
 import { Project } from '../entities/project';
 
 
@@ -24,10 +24,22 @@ export const update = async (projectInfo) => {
         {
             number: projectInfo.number,
             address: projectInfo.address,
+            actions: projectInfo.actions
         },
-        { new: true }
+        {
+            new: true,
+            useFindAndModify: false
+        }
     );
 }
+
+// export const update = async projectInfo => {
+//     connectdb();
+//     console.log(projectInfo);
+//     let query = { _id: projectInfo._id };
+//     await ProjectModel.updateOne(query, { $set: { actions: projectInfo.actions } });
+//     return (find(projectInfo._id));
+// }
 
 export const findAll = async () => {
     connectdb();

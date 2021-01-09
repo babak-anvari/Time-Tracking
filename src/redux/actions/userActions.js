@@ -67,6 +67,8 @@ export function updateUser(user) {
             .updateUser(user)
             .then(user => {
                 dispatch(updateUserSuccess(user));
+                localStorage.removeItem("user");
+                dispatch(userSignOutSuccess());
             })
             .catch(error => {
                 throw error;

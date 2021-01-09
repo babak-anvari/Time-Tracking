@@ -7,10 +7,20 @@ import PropTypes from "prop-types";
 import TimesheetTable from './TimesheetTable';
 import TimesheetInformation from './TimesheetInformation';
 import validateTasks from './validateTasks';
-function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, loadProjects }) {
+import { loadActions } from '../../redux/actions/actionItemsActions';
+function TimesheetPage({ timesheet, projects, actions, loadTimesheet, saveTimesheet, loadProjects, loadActions }) {
     let [tasks, setTasks] = useState(timesheet.tasks);
     let [weekEnd, setWeekEnd] = useState(null);
     let [errors, setErrors] = useState([]);
+    let [actionItems, setActionItems] = useState([]);
+
+    useEffect(() => {
+        loadActions();
+    }, [])
+
+    useEffect(() => {
+        setActionItems(actions.actions);
+    }, [actions])
 
     useEffect(() => {
         loadProjects();
@@ -39,7 +49,7 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
             timesheet = {
                 ...timesheet,
                 weekEnd,
-                userId: JSON.parse(localStorage.getItem('user')).id,
+                userId: JSON.parse(localStorage.getItem('user'))._id,
                 tasks
             }
             saveTimesheet(timesheet);
@@ -50,7 +60,7 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
     const handleChange = (e, id) => {
         let { name, value } = e.target;
         let projectId = null;
-        value = (name === 'hour') ? parseInt(value, 10) : value;
+        // value = (name === 'hour') ? parseInt(value, 10) : value;
         if (name === 'projectNumber') {
             let selectedProject = projects.find(project => project.number == value);
             projectId = (selectedProject) ? selectedProject._id : null;
@@ -89,7 +99,7 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
     }
 
     return (
-        <div>
+        <div className='jumbotron'>
             <TimesheetInformation
                 weekEnd={weekEnd}
                 getTimesheet={getTimesheet}
@@ -98,6 +108,7 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
                 <TimesheetTable
                     tasks={(tasks)}
                     projectList={projects}
+                    actionItems={actionItems}
                     findError={findError}
                     handleChange={handleChange}
                     addRow={addTask}
@@ -112,9 +123,11 @@ function TimesheetPage({ timesheet, projects, loadTimesheet, saveTimesheet, load
 TimesheetPage.propTypes = {
     timesheet: PropTypes.object.isRequired,
     projects: PropTypes.array.isRequired,
+    actions: PropTypes.object,
     loadTimesheet: PropTypes.func.isRequired,
     saveTimesheet: PropTypes.func.isRequired,
-    loadProjects: PropTypes.func.isRequired
+    loadProjects: PropTypes.func.isRequired,
+    loadActions: PropTypes.func.isRequired
 };
 
 let newTask = {
@@ -126,11 +139,12 @@ let newTask = {
 function mapStateToProps(state) {
     return {
         timesheet: state.timesheet,
-        projects: state.projects
+        projects: state.projects,
+        actions: state.actions
     };
 }
 
-const mapDispatchToProps = { loadTimesheet, saveTimesheet, loadProjects };
+const mapDispatchToProps = { loadTimesheet, saveTimesheet, loadProjects, loadActions };
 
 export default connect(
     mapStateToProps,
