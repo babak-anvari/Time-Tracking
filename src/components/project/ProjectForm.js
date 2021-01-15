@@ -3,9 +3,11 @@ import PropTypes from "prop-types";
 
 const ProjectForm = ({ projectInfo, actionItems, handleChange, handleActionChange, addAction, deleteAction, save }) => (
     <>
-        <p>Project Information</p>
+        <h3>Project information</h3>
         <form>
+            <lable>Project Name</lable><br />
             <input onChange={handleChange} name={'number'} value={projectInfo.number} placeholder='Project Name' /><br /><br />
+            <lable>Project Address</lable><br />
             <input onChange={handleChange} name={'address'} value={projectInfo.address} placeholder='address' /><br /><br />
             {projectInfo.actions && projectInfo.actions.length > 0 &&
                 <>
