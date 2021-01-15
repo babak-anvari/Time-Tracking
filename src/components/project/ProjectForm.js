@@ -11,10 +11,29 @@ const ProjectForm = ({ projectInfo, actionItems, handleChange, handleActionChang
             <input onChange={handleChange} name={'address'} value={projectInfo.address} placeholder='address' /><br /><br />
             {projectInfo.actions && projectInfo.actions.length > 0 &&
                 <>
-                    <label>Project Actions</label>
-                    <table>
+                    <label>Project Actions</label><br />
+                    <select
+                        className="form-select form-select-lg mb-3"
+                        aria-label=".form-select-lg example"
+                        padding='20px'
+                        name="action"
+                        placeholder={'Select an action'}
+                        onChange={handleActionChange}>
+                        {actionItems.map(action => {
+                            if (projectInfo.actions && !projectInfo.actions.find(setAction => setAction._id == action._id)) {
+                                return <option key={action._id} value={action._id}>{action.name}</option>;
+                            }
+                        })}
+                    </select>
+                    <button
+                        className='btn btn-primary btn-sm'
+                        onClick={addAction}
+                    >
+                        Add action
+                </button><br /><br />
+                    <table className="table">
                         <thead>
-                            <tr><th>Actions</th></tr>
+                            <tr><th scope="col">Actions</th></tr>
                         </thead>
                         <tbody>
                             {projectInfo.actions.map(action => (
@@ -26,7 +45,8 @@ const ProjectForm = ({ projectInfo, actionItems, handleChange, handleActionChang
                                             name='deleteAction'
                                             key={action._id}
                                             onClick={(e) => deleteAction(e, action._id)}>
-                                            Delete</button>
+                                            Delete
+                                        </button>
                                     </td>
                                 </tr>
                             ))}
@@ -37,23 +57,6 @@ const ProjectForm = ({ projectInfo, actionItems, handleChange, handleActionChang
             {projectInfo.actions && projectInfo.actions.length == 0 &&
                 <label>Project actions are not set</label>
             }
-
-            <select
-                name="action"
-                placeholder={'Select an action'}
-                onChange={handleActionChange}>
-                {actionItems.map(action => {
-                    if (projectInfo.actions && !projectInfo.actions.find(setAction => setAction._id == action._id)) {
-                        return <option key={action._id} value={action._id}>{action.name}</option>;
-                    }
-                })}
-            </select><br /><br />
-            <button
-                className='btn btn-primary btn-sm'
-                onClick={addAction}
-            >
-                Add action
-                </button><br /><br />
             <button onClick={save} className='btn btn-primary btn-sm'>
                 {projectInfo._id ? 'Update Project Information' : 'Create New Project'}
             </button>
@@ -61,7 +64,9 @@ const ProjectForm = ({ projectInfo, actionItems, handleChange, handleActionChang
     </>
 )
 
-export default ProjectForm;
+const selectStyle = {
+    height: '40 px'
+}
 
 ProjectForm.propTypes = {
     projectInfo: PropTypes.object.isRequired,
@@ -72,3 +77,5 @@ ProjectForm.propTypes = {
     deleteAction: PropTypes.func.isRequired,
     save: PropTypes.func.isRequired
 };
+
+export default ProjectForm;

@@ -8,6 +8,7 @@ import parseISO from 'date-fns/parseISO';
 
 const TimesheetTable = ({ tasks, projectList, actionItems, addRow, deleteRow, saveTable, handleChange, findError }) => (
     <>
+        <button type='button' onClick={saveTable} className='btn btn-primary btn-st'>Save</button><br /><br />
         <table className="table">
             <thead>
                 <tr>
@@ -89,7 +90,6 @@ const TimesheetTable = ({ tasks, projectList, actionItems, addRow, deleteRow, sa
                 ))}
             </tbody>
         </table >
-        <button type='button' onClick={saveTable} className='btn btn-primary btn-st'>Save</button><br /><br />
         <button type='button' onClick={addRow} className='btn btn-primary btn-st'>Add Task</button>
     </>
 )

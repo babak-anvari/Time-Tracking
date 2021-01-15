@@ -50,12 +50,14 @@ const ActionItems = ({ actions, loadActions, saveActions }) => {
     }
 
     return (
-        <ActionItemsTable
-            actionItems={actionItems}
-            addActionItem={addActionItem}
-            updateActionItem={updateActionItem}
-            saveActionItem={saveActionItem}
-        />
+        <div className='jumbotron'>
+            <ActionItemsTable
+                actionItems={actionItems}
+                addActionItem={addActionItem}
+                updateActionItem={updateActionItem}
+                saveActionItem={saveActionItem}
+            />
+        </div>
     )
 }
 
