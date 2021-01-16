@@ -4,14 +4,13 @@ import PropTypes from "prop-types";
 const HourInput = ({ handleChange, Inputvalue, taskId, error }) => (
     <>
         <input
-            className='form-control'
             aria-label="Small"
             aria-describedby="inputGroup-sizing-sm"
             name='hour'
             value={Inputvalue}
             onChange={(e) => handleChange(e, taskId)}
             autoComplete='off'
-            style={{ width: "50px" }}
+            style={{ width: "30px" }}
         >
         </input>
         {error &&

@@ -1,5 +1,5 @@
 #app {
-  max-width: 1250px;
+  max-width: 850px;
   margin: 0 auto;
 }
 
@@ -46,4 +46,28 @@ nav a:hover{
 .Active_Nav_Link {
   color: white;
   background-color: black;
+}
+
+.backGroundColor {
+  background: rgb(194, 194, 241);
+  padding: 20px;
+  margin: 0 px;
+  border:ridge;
+}
+
+/* Timesheet table styling */
+
+table {
+  border: 2px solid rgb(3, 52, 94);
+  width: 100%;
+}
+
+th, td {
+  font-size:0.75em;
+  padding: 15px;
+  text-align: left;
+}
+
+.deleteIcon :hover{
+  transform: scale(1.1);
 }

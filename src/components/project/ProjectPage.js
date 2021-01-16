@@ -92,7 +92,7 @@ const ProjectPage = ({ projects, actions, loadProjects, saveProject, loadActions
     }
 
     return (
-        <div className='jumbotron'>
+        <div className='backGroundColor'>
             <div className="container">
                 <div className="row justify-content-start">
                     <div className="col-4">
