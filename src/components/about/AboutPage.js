@@ -1,8 +1,8 @@
 import React from 'react';
 
 export const AboutPage = () => (
-    <div className='jumbotron'>
+    <div className='backGroundColor'>
         <h2>About</h2>
-        <p>This application is developed by Babak to track time spent on projects.</p>
+        <p>Time tracking web application</p>
     </div>
 );

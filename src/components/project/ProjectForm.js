@@ -11,7 +11,6 @@ const ProjectForm = ({ projectInfo, actionItems, handleChange, handleActionChang
             <input onChange={handleChange} name={'address'} value={projectInfo.address} placeholder='address' /><br /><br />
             {projectInfo.actions && projectInfo.actions.length > 0 &&
                 <>
-                    <label>Project Actions</label><br />
                     <select
                         className="form-select form-select-lg mb-3"
                         aria-label=".form-select-lg example"
@@ -31,9 +30,9 @@ const ProjectForm = ({ projectInfo, actionItems, handleChange, handleActionChang
                     >
                         Add action
                 </button><br /><br />
-                    <table className="table">
+                    <table>
                         <thead>
-                            <tr><th scope="col">Actions</th></tr>
+                            <tr><th>Project Actions</th></tr>
                         </thead>
                         <tbody>
                             {projectInfo.actions.map(action => (

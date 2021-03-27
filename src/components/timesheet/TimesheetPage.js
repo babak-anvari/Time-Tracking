@@ -99,7 +99,7 @@ function TimesheetPage({ timesheet, projects, actions, loadTimesheet, saveTimesh
     }
 
     return (
-        <div className='jumbotron'>
+        <div className='backGroundColor'>
             <TimesheetInformation
                 weekEnd={weekEnd}
                 getTimesheet={getTimesheet}

@@ -10,24 +10,17 @@ const Header = ({ currentUser, userRenewLogin, userSignOut }) => {
         let user = getToken();
         user ? userRenewLogin(user) : console.log('not logged in');
     }, [])
-    const activeStyle = { color: "#F15B2A" };
     return (
         <nav>
-            <NavLink to="/" activeStyle={activeStyle} exact>Home</NavLink>
-            {" | "}
-            <NavLink to="/about" activeStyle={activeStyle}>About</NavLink>
-            {" | "}
-            <NavLink to="/user" activeStyle={activeStyle}>{currentUser._id ? 'User' : 'Sign in'}</NavLink>
+            <NavLink className='Nav_Link' activeClassName="Active_Nav_Link" to="/" exact>Home</NavLink>
+            <NavLink className='Nav_Link' activeClassName="Active_Nav_Link" to="/about" >About</NavLink>
+            <NavLink className='Nav_Link' activeClassName="Active_Nav_Link" to="/user">{currentUser._id ? 'User' : 'Sign in'}</NavLink>
             {currentUser._id &&
                 <>
-                    {" | "}
-                    <NavLink to="/project" activeStyle={activeStyle}>Project</NavLink>
-                    {" | "}
-                    <NavLink to="/action" activeStyle={activeStyle}>Action</NavLink>
-                    {" | "}
-                    <NavLink to="/timesheet" activeStyle={activeStyle}>Timesheet</NavLink>
-                    {" | "}
-                    <NavLink to="/user" onClick={userSignOut}>Sign out</NavLink>
+                    <NavLink className='Nav_Link' activeClassName="Active_Nav_Link" to="/project">Project</NavLink>
+                    <NavLink className='Nav_Link' activeClassName="Active_Nav_Link" to="/action" >Action</NavLink>
+                    <NavLink className='Nav_Link' activeClassName="Active_Nav_Link" to="/timesheet" >Timesheet</NavLink>
+                    <NavLink className='Nav_Link' to="/user" onClick={userSignOut}>Sign out</NavLink>
                 </>
             }
         </nav>

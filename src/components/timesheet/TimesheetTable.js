@@ -5,14 +5,15 @@ import DatePicker from "react-datepicker";
 import ProjectInput from '../common/ProjectInput';
 import HourInput from '../common/HourInput';
 import parseISO from 'date-fns/parseISO';
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const TimesheetTable = ({ tasks, projectList, actionItems, addRow, deleteRow, saveTable, handleChange, findError }) => (
     <>
-        <button type='button' onClick={saveTable} className='btn btn-primary btn-st'>Save</button><br /><br />
-        <table className="table">
+        <button type='button' onClick={saveTable} className='btn btn-primary btn-sm'>Save timesheet</button><br /><br />
+        <table>
             <thead>
                 <tr>
-                    <th>Task Number</th>
+                    <th></th>
                     <th>Date</th>
                     <th>Project</th>
                     <th>Action</th>
@@ -45,6 +46,7 @@ const TimesheetTable = ({ tasks, projectList, actionItems, addRow, deleteRow, sa
                         <td>
                             {task.projectId &&
                                 <select
+                                    style={{ height: '25px', padding: '0px' }}
                                     name='actionId'
                                     value={actionItems.find(action => action._id == task.actionId) &&
                                         actionItems.find(action => action._id == task.actionId)._id}
@@ -77,6 +79,7 @@ const TimesheetTable = ({ tasks, projectList, actionItems, addRow, deleteRow, sa
                         </td>
                         <td>
                             <textarea
+                                style={{ height: "25px" }}
                                 name='detail'
                                 type="text"
                                 onChange={(e) => handleChange(e, task.id)}
@@ -84,13 +87,13 @@ const TimesheetTable = ({ tasks, projectList, actionItems, addRow, deleteRow, sa
                             />
                         </td>
                         <td>
-                            <button onClick={() => deleteRow(task.rowNumber)} className='btn btn-dark btn-sm'>Delete</button>
+                            <div className="deleteIcon" onClick={() => deleteRow(task.rowNumber)}><DeleteIcon /></div>
                         </td>
                     </tr>
                 ))}
             </tbody>
-        </table >
-        <button type='button' onClick={addRow} className='btn btn-primary btn-st'>Add Task</button>
+        </table ><br />
+        <button type='button' onClick={addRow} className='btn btn-primary btn-sm'>Add Task</button>
     </>
 )
 

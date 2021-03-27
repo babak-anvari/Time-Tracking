@@ -92,8 +92,8 @@ const ProjectPage = ({ projects, actions, loadProjects, saveProject, loadActions
     }
 
     return (
-        <div className='jumbotron'>
-            <div className="container">
+        <div className='backGroundColor'>
+            <div>
                 <div className="row justify-content-start">
                     <div className="col-4">
                         <ProjectControl
