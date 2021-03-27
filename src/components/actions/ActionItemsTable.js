@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 const ActionItemsTable = ({ actionItems, updateActionItem, addActionItem, saveActionItem }) => (
     <>
         <h4>Project Actions</h4><br />
-        <table className="table">
+        <button onClick={saveActionItem} className='btn btn-primary btn-sm'>Save action items</button><br /><br />
+        <table>
             <thead>
                 <tr>
                     <th>Action Number</th>
@@ -26,9 +27,8 @@ const ActionItemsTable = ({ actionItems, updateActionItem, addActionItem, saveAc
                     </tr>
                 ))}
             </tbody>
-        </table>
+        </table><br />
         <button onClick={addActionItem} className='btn btn-primary btn-sm'>Add action</button><br /><br />
-        <button onClick={saveActionItem} className='btn btn-primary btn-sm'>Save action items</button>
     </>
 )
 

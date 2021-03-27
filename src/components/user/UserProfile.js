@@ -7,8 +7,8 @@ import "react-datepicker/dist/react-datepicker.css";
 const UserProfile = ({ user, handleChange, updateUserInformation }) => (
     <>
         <form on onSubmit={updateUserInformation}>
-            <div className="form-group">
-                <p>First Name:</p>
+            <div>
+                <label>First Name:</label>
                 <input
                     name='firstName'
                     autoComplete='off'
@@ -16,8 +16,8 @@ const UserProfile = ({ user, handleChange, updateUserInformation }) => (
                     value={user.firstName}>
                 </input>
             </div>
-            <div className="form-group">
-                <p>Last Name:</p>
+            <div>
+                <label>Last Name:</label>
                 <input
                     name='lastName'
                     autoComplete='off'
@@ -25,8 +25,8 @@ const UserProfile = ({ user, handleChange, updateUserInformation }) => (
                     value={user.lastName}>
                 </input>
             </div>
-            <div className="form-group">
-                <p>Occupation</p>
+            <div>
+                <label>Occupation</label>
                 <input
                     name='currentPosition'
                     autoComplete='off'
@@ -34,8 +34,8 @@ const UserProfile = ({ user, handleChange, updateUserInformation }) => (
                     value={user.currentPosition}>
                 </input>
             </div>
-            <div className="form-group">
-                <p>Employed since:</p>
+            <div>
+                <label>Employed since:</label>
                 {user.employmentDate &&
                     < DatePicker
                         selected={parseISO(user.employmentDate)}
