@@ -16,6 +16,7 @@
     "@material-ui/icons": "^4.11.2",
     "@material-ui/utils": "^4.11.2",
     "axios": "^0.21.0",
+    "bcryptjs": "^2.4.3",
     "bootstrap": "4.3.1",
     "date-fns": "^2.16.1",
     "immer": "2.1.3",
