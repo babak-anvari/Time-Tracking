@@ -3,7 +3,7 @@ var config = {
   test: 'testing',
   prod: 'production',
   port: process.env.PORT || 7777,
-  databaseURL: process.env.MONGODB_URI || `mongodb://localhost:27017/ERP`,
+  databaseURL: process.env.MONGODB_URI || `mongodb+srv://babak:timetrack@cluster0.nwjru.mongodb.net/ERP?retryWrites=true&w=majority`,
   secret: process.env.SECRET || 'BABAK'
 };
 
