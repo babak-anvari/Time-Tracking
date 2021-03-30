@@ -13,8 +13,9 @@ app.use(errorHandler);                      //setup error handler
 app.listen(config.port, console.log("Server listening on port ", config.port));
 
 if (config.env == config.prod) {
-    app.use(express.static(path.resolve(__dirname, '../../dist')));
+    app.use(express.static(path.resolve(__dirname, '../build')));
     app.get('/*', (req, res) => {
         res.sendFile(path.resolve('index.html'));
     })
+    console.log(process.env.NODE_ENV);
 }
