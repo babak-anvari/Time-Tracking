@@ -3,7 +3,7 @@
   "description": "Time tracking application by Babak",
   "scripts": {
     "server": "nodemon --exec babel-node ./api/server.js",
-    "start": "babel-node ./api/server.js ",
+    "start": "babel-node api/server.js",
     "webpack": "webpack-dev-server --config webpack.config.dev.js --port 3000",
     "clean:build": "rimraf ./build && mkdir build",
     "prebuild": "run-p clean:build",
