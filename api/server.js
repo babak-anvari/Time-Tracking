@@ -20,5 +20,5 @@ if (config.env == config.prod) {
     console.log(`Environment: ${process.env.NODE_ENV}`);
     console.log(`URL: ${process.env.API_URL}`);
     console.log(`Port: ${process.env.PORT}`);
-    console.log(`MongoDB URL: ${process.env.MONGODB_URI}`);
+    console.log(`MongoDB URL: ${process.env.MONGODB_URL}`);
 }
