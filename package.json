@@ -2,9 +2,10 @@
   "name": "time-tracking-application",
   "description": "Time tracking application by Babak",
   "scripts": {
-    "server": "nodemon --exec babel-node ./api/server.js",
-    "webpack": "webpack-dev-server --config webpack.config.dev.js --port 3000",
-    "webpackBuild": "webpack --config webpack.config.prod.js",
+    "express.server": "nodemon --exec babel-node ./api/server.js",
+    "webpack.server": "webpack-dev-server --config webpack.config.dev.js --port 3000",
+    "webpack.deploy.build": "webpack --config webpack.config.prod.js",
+    "webpack.test.build": "webpack --config webpack.config.test.prod.js",
     "start": "babel-node api/server.js"
   },
   "dependencies": {
