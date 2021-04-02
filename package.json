@@ -3,13 +3,9 @@
   "description": "Time tracking application by Babak",
   "scripts": {
     "server": "nodemon --exec babel-node ./api/server.js",
-    "start": "babel-node api/server.js",
     "webpack": "webpack-dev-server --config webpack.config.dev.js --port 3000",
-    "clean:build": "rimraf ./build && mkdir build",
-    "prebuild": "run-p clean:build",
-    "build": "webpack --config webpack.config.prod.js",
-    "postbuild": "run-p server serve:build",
-    "serve:build": "http-server ./build"
+    "webpackBuild": "webpack --config webpack.config.prod.js",
+    "start": "babel-node api/server.js"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.2",
