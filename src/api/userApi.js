@@ -3,7 +3,7 @@ import handleApiResponse from './handleApiResponse'
 import handleApiError from './handleApiError'
 import authHeader from '../utils/authHeader';
 
-const baseUrl = process.env.API_URL + '/user/'
+const baseUrl = process.env.API_URL + '/user'
 
 export const userLogin = (user) => {
     return axios({
