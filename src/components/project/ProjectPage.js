@@ -1,121 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from "prop-types";
+import ProjectSearch from './ProjectSearch';
+import ProjectTable from './ProjectTable';
 import { loadProjects, saveProject } from '../../redux/actions/projectActions';
-import ProjectControl from './ProjectControl';
-import ProjectForm from './ProjectForm';
 import { loadActions } from '../../redux/actions/actionItemsActions';
 
 const ProjectPage = ({ projects, actions, loadProjects, saveProject, loadActions }) => {
-    let [projectList, setProjectList] = useState([]);
-    let [inputProject, setInputProject] = useState({ projectNumber: '', _id: '' });
-    let [projectInfo, setProjectInfo] = useState({});
-    let [action, setAction] = useState({});
-    let [actionItems, setActionItems] = useState([]);
+
+    let [projectName, setProjectName] = useState('');
+    let [projectList, setProjectList] = useState(projects);
+    let [identifiedProjects, setIdentifiedProjects] = useState([]);
 
     useEffect(() => {
         loadProjects();
     }, [])
 
     useEffect(() => {
-        loadActions();
-    }, [])
-
-    useEffect(() => {
         setProjectList(projects);
+        setIdentifiedProjects(projects);
     }, [projects])
 
-    useEffect(() => {
-        // debugger;
-        if (actions.actions) {
-            setAction(actions.actions[0]);
-            setActionItems(actions.actions);
-        }
-    }, [actions])
-
-    useEffect(() => {
-        let findProject = projectList.find(project => project._id == inputProject._id);
-        (findProject)
-            ? setProjectInfo(findProject)
-            : setProjectInfo({
-                _id: null, number: inputProject.projectNumber, address: ''
-            });
-    }, [inputProject])
-
-    const handleProjectControlChange = (e) => {
-        let { name, value } = e.target;
-        inputProject = { ...inputProject, [name]: value };
-        let selectedProject = projectList.find(project => project.number == inputProject.projectNumber);
-        let _id = (selectedProject) ? selectedProject._id : null;
-        inputProject = { ...inputProject, _id };
-        setInputProject(inputProject);
+    const findProject = (e) => {
+        let { value } = e.target;
+        identifiedProjects = projectList.filter((project) => (
+            project.number.startsWith(value)
+        ))
+        setIdentifiedProjects(identifiedProjects);
+        setProjectName(value);
     }
 
-    const handleProjectFormChange = (e) => {
-        let { name, value } = e.target;
-        projectInfo = { ...projectInfo, [name]: value };
-        setProjectInfo(projectInfo);
-    }
-
-    const handleActionChange = (e) => {
-        let { value: _id } = e.target;
-        setAction(actionItems.find(action => action._id == _id));
-    }
-
-    const save = () => {
-        saveProject(projectInfo);
-    }
-
-    const addAction = (e) => {
-        e.preventDefault();
-        projectInfo = {
-            ...projectInfo,
-            actions: [
-                ...projectInfo.actions, action
-            ]
-        }
-        let remainingActions = actionItems.filter(action => {
-            let assignedAction = projectInfo.actions.find(projectAction => projectAction._id == action._id);
-            return !assignedAction ? true : false;
-        })
-        if (remainingActions.length > 0) {
-            setAction(remainingActions[0]);
-        }
-        setProjectInfo(projectInfo);
-    }
-
-    const deleteAction = (e, _id) => {
-        e.preventDefault();
-        let actions = projectInfo.actions.filter(action => action._id !== _id);
-        projectInfo = { ...projectInfo, actions };
-        setProjectInfo(projectInfo);
-    }
 
     return (
         <div className='backGroundColor'>
             <div>
-                <div className="row justify-content-start">
-                    <div className="col-4">
-                        <ProjectControl
-                            inputProject={inputProject}
-                            projectList={projectList}
-                            handleChange={handleProjectControlChange}
-                        />
-                    </div>
-                    <div className="col-4">
-                        {projectInfo.number &&
-                            <ProjectForm
-                                projectInfo={projectInfo}
-                                actionItems={actionItems}
-                                handleChange={handleProjectFormChange}
-                                handleActionChange={handleActionChange}
-                                addAction={addAction}
-                                deleteAction={deleteAction}
-                                save={save}
-                            />
-                        }
-                    </div>
-                </div>
+                <ProjectSearch
+                    projectName={projectName}
+                    findProject={findProject}
+                />
+                {identifiedProjects.length > 0 &&
+                    <ProjectTable
+                        identifiedProjects={identifiedProjects}
+                    />
+                }
             </div>
         </div>
     )
