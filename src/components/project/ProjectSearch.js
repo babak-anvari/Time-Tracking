@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
-const ProjectSearch = ({ projectName, findProject }) => (
+const ProjectSearch = ({ searchKeyword, filterProjectsByName }) => (
     <>
         <p>Search</p><br />
-        <input onChange={findProject} name={'projectName'} value={projectName} placeholder='Project Name' /><br /><br />
+        <input onChange={filterProjectsByName} name={'searchKeyword'} value={searchKeyword} placeholder='Project Name' /><br /><br />
 
     </>
 )
@@ -12,6 +12,6 @@ const ProjectSearch = ({ projectName, findProject }) => (
 export default ProjectSearch;
 
 ProjectSearch.propTypes = {
-    projectName: PropTypes.string.isRequired,
-    findProject: PropTypes.func.isRequired
+    searchKeyword: PropTypes.string.isRequired,
+    filterProjectsByName: PropTypes.func.isRequired
 };

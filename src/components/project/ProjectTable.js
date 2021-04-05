@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 
-const ProjectTable = ({ identifiedProjects }) => (
+const ProjectTable = ({ identifiedProjects, findProjectById, setProjectComponentState }) => (
     <>
         <p>Project List</p><br />
         <table>
@@ -12,8 +12,8 @@ const ProjectTable = ({ identifiedProjects }) => (
                     <th>Name</th>
                     <th>Status</th>
                     <th>Address</th>
-                    <th></th>
-                    <th></th>
+                    <th>View</th>
+                    <th>Edit</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,7 +26,12 @@ const ProjectTable = ({ identifiedProjects }) => (
                             <div className="deleteIcon" onClick={() => { }}><VisibilityOutlinedIcon /></div>
                         </td>
                         <td>
-                            <div className="deleteIcon" onClick={() => { }}><EditRoundedIcon /></div>
+                            <div className="deleteIcon" onClick={() => {
+                                findProjectById(project._id);
+                                setProjectComponentState('edit');
+                            }}>
+                                <EditRoundedIcon />
+                            </div>
                         </td>
                     </tr>
                 ))}
@@ -38,5 +43,7 @@ const ProjectTable = ({ identifiedProjects }) => (
 export default ProjectTable;
 
 ProjectTable.propTypes = {
-    identifiedProjects: PropTypes.array.isRequired
+    findProjectById: PropTypes.func.isRequired,
+    identifiedProjects: PropTypes.array.isRequired,
+    setProjectComponentState: PropTypes.func.isRequired
 };
