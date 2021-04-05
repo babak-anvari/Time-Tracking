@@ -4,10 +4,10 @@ import PropTypes from "prop-types";
 import ProjectSearch from './ProjectSearch';
 import ProjectTable from './ProjectTable';
 import ProjectForm from './ProjectForm';
-import { loadProjects, saveProject } from '../../redux/actions/projectActions';
+import { loadProjects, saveProject, updateProject } from '../../redux/actions/projectActions';
 import { loadActions } from '../../redux/actions/actionItemsActions';
 
-const ProjectPage = ({ projects, actions, loadProjects, saveProject, loadActions }) => {
+const ProjectPage = ({ projects, actions, loadProjects, saveProject, updateProject, loadActions }) => {
 
     let [projectComponentState, setProjectComponentState] = useState('search');
     let [searchKeyword, setSearchKeyword] = useState('');
@@ -30,6 +30,7 @@ const ProjectPage = ({ projects, actions, loadProjects, saveProject, loadActions
     useEffect(() => {
         setProjectList(projects);
         setIdentifiedProjects(projects);
+        setSearchKeyword('')
     }, [projects])
 
     useEffect(() => {
@@ -57,8 +58,10 @@ const ProjectPage = ({ projects, actions, loadProjects, saveProject, loadActions
         setidentifiedProject({ ...identifiedProject, [name]: value });
     }
 
-    const save = () => {
-        saveProject(identifiedProject);
+    const saveIdentifiedProject = () => {
+        (identifiedProject._id)
+            ? updateProject({ ...identifiedProject })
+            : saveProject({ ...identifiedProject })
     }
 
     return (
@@ -84,7 +87,7 @@ const ProjectPage = ({ projects, actions, loadProjects, saveProject, loadActions
                     <ProjectForm
                         identifiedProject={identifiedProject}
                         handleChange={handleChange}
-                        save={save}
+                        saveIdentifiedProject={saveIdentifiedProject}
                         setProjectComponentState={setProjectComponentState}
                         actionList={actionList}
                         setidentifiedProject={setidentifiedProject}
@@ -100,6 +103,7 @@ ProjectPage.propTypes = {
     actions: PropTypes.object,
     loadProjects: PropTypes.func.isRequired,
     saveProject: PropTypes.func.isRequired,
+    updateProject: PropTypes.func.isRequired,
     loadActions: PropTypes.func.isRequired,
 };
 
@@ -110,7 +114,7 @@ function mapStateToProps(state) {
     };
 }
 
-const mapDispatchToProps = { loadProjects, saveProject, loadActions };
+const mapDispatchToProps = { loadProjects, saveProject, updateProject, loadActions };
 
 export default connect(
     mapStateToProps,

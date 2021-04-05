@@ -7,6 +7,14 @@ export default function projectReducer(state = initialState.projects, action) {
             return action.projects;
         case types.saveProjectSuccess:
             return [...state, action.project];
+        case types.UPDATE_PROJECT_SUCCESS:
+            state = state.map(project => {
+                if (project._id == action.project._id) {
+                    project = { ...project, ...action.project }
+                }
+                return project;
+            })
+            return (state)
         default:
             return state;
     }

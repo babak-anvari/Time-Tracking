@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import AddCircleOutlineRoundedIcon from '@material-ui/icons/AddCircleOutlineRounded';
 import RemoveCircleOutlineRoundedIcon from '@material-ui/icons/RemoveCircleOutlineRounded';
 
-const ProjectForm = ({ identifiedProject, handleChange, save, setProjectComponentState, actionList, setidentifiedProject }) => {
+const ProjectForm = ({ identifiedProject, handleChange, saveIdentifiedProject, setProjectComponentState, actionList, setidentifiedProject }) => {
 
     const actionAssigned = (action) => {
         return (identifiedProject.actions.find((projectAction => projectAction._id == action._id))
@@ -13,24 +13,23 @@ const ProjectForm = ({ identifiedProject, handleChange, save, setProjectComponen
     }
 
     const updateProjectActions = (action) => {
-        let project = {};
         if (identifiedProject.actions.find((projectAction => projectAction._id == action._id))) {
             let updatedActions = identifiedProject.actions.filter(projectAction => projectAction._id !== action._id);
-            project = {
+            identifiedProject = {
                 ...identifiedProject, actions:
                     [...updatedActions]
             };
             console.log('remove');
         }
         else {
-            project = {
+            identifiedProject = {
                 ...identifiedProject, actions:
                     [...identifiedProject.actions, action]
             }
             console.log('add');
 
         }
-        setidentifiedProject({ ...project });
+        setidentifiedProject({ ...identifiedProject });
     }
     return (
         <>
@@ -44,6 +43,7 @@ const ProjectForm = ({ identifiedProject, handleChange, save, setProjectComponen
                     <label>Project Address</label>
                     <input onChange={handleChange} name={'address'} value={identifiedProject.address} placeholder='address' />
                 </div>
+
                 <table>
                     <thead>
                         <tr>
@@ -70,7 +70,7 @@ const ProjectForm = ({ identifiedProject, handleChange, save, setProjectComponen
                     </tbody>
                 </table ><br />
             </form>
-            <button onClick={save} className='btn btn-primary btn-sm'>Save</button><br /><br />
+            <button onClick={saveIdentifiedProject} className='btn btn-primary btn-sm'>Save</button><br /><br />
             <button onClick={() => { setProjectComponentState('search') }} className='btn btn-primary btn-sm'>Back to projects</button><br /><br />
 
         </>
@@ -80,7 +80,7 @@ const ProjectForm = ({ identifiedProject, handleChange, save, setProjectComponen
 ProjectForm.propTypes = {
     identifiedProject: PropTypes.object.isRequired,
     handleChange: PropTypes.func.isRequired,
-    save: PropTypes.func.isRequired,
+    saveIdentifiedProject: PropTypes.func.isRequired,
     setProjectComponentState: PropTypes.func.isRequired,
     actionList: PropTypes.array.isRequired,
     setidentifiedProject: PropTypes.func.isRequired
