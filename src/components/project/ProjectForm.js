@@ -69,8 +69,8 @@ const ProjectForm = ({ identifiedProject, handleChange, save, setProjectComponen
                         ))}
                     </tbody>
                 </table ><br />
-                <button onClick={save} className='btn btn-primary btn-sm'>Save</button><br /><br />
             </form>
+            <button onClick={save} className='btn btn-primary btn-sm'>Save</button><br /><br />
             <button onClick={() => { setProjectComponentState('search') }} className='btn btn-primary btn-sm'>Back to projects</button><br /><br />
 
         </>
