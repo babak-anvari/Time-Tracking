@@ -9,3 +9,4 @@ export const loadProjectsSuccess = 'loadProjectsSuccess';
 export const LOAD_ACTIONS_SUCCESS = 'LOAD_ACTIONS_SUCCESS';
 export const SAVE_ACTIONS_SUCCESS = 'SAVE_ACTIONS_SUCCESS';
 export const saveProjectSuccess = 'saveProjectSuccess';
+export const UPDATE_PROJECT_SUCCESS = 'UPDATE_PROJECT_SUCCESS';

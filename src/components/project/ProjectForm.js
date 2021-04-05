@@ -1,80 +1,62 @@
 import React from 'react';
 import PropTypes from "prop-types";
+import AddCircleOutlineRoundedIcon from '@material-ui/icons/AddCircleOutlineRounded';
+import RemoveCircleOutlineRoundedIcon from '@material-ui/icons/RemoveCircleOutlineRounded';
 
-const ProjectForm = ({ projectInfo, actionItems, handleChange, handleActionChange, addAction, deleteAction, save }) => (
+const ProjectForm = ({ identifiedProject, saveIdentifiedProject, setProjectComponentState, actionList, handleProjectChange, updateProjectActions, actionAssigned }) => (
     <>
-        <h3>Project information</h3>
+        <h3>Project Information</h3>
         <form>
-            <lable>Project Name</lable><br />
-            <input onChange={handleChange} name={'number'} value={projectInfo.number} placeholder='Project Name' /><br /><br />
-            <lable>Project Address</lable><br />
-            <input onChange={handleChange} name={'address'} value={projectInfo.address} placeholder='address' /><br /><br />
-            {projectInfo.actions && projectInfo.actions.length > 0 &&
-                <>
-                    <select
-                        className="form-select form-select-lg mb-3"
-                        aria-label=".form-select-lg example"
-                        padding='20px'
-                        name="action"
-                        placeholder={'Select an action'}
-                        onChange={handleActionChange}>
-                        {actionItems.map(action => {
-                            if (projectInfo.actions && !projectInfo.actions.find(setAction => setAction._id == action._id)) {
-                                return <option key={action._id} value={action._id}>{action.name}</option>;
-                            }
-                        })}
-                    </select>
-                    <button
-                        className='btn btn-primary btn-sm'
-                        onClick={addAction}
-                    >
-                        Add action
-                </button><br /><br />
-                    <table>
-                        <thead>
-                            <tr><th>Project Actions</th></tr>
-                        </thead>
-                        <tbody>
-                            {projectInfo.actions.map(action => (
-                                <tr key={action._id}>
-                                    <td >{actionItems.find(eachAction => eachAction._id == action._id).name}</td>
-                                    <td>
-                                        <button
-                                            className='btn btn-dark btn-sm'
-                                            name='deleteAction'
-                                            key={action._id}
-                                            onClick={(e) => deleteAction(e, action._id)}>
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </>
-            }
-            {projectInfo.actions && projectInfo.actions.length == 0 &&
-                <label>Project actions are not set</label>
-            }
-            <button onClick={save} className='btn btn-primary btn-sm'>
-                {projectInfo._id ? 'Update Project Information' : 'Create New Project'}
-            </button>
+            <div>
+                <label>Project Name</label>
+                <input onChange={handleProjectChange} name={'number'} value={identifiedProject.number} placeholder='Name' />
+            </div>
+            <div>
+                <label>Project Address</label>
+                <input onChange={handleProjectChange} name={'address'} value={identifiedProject.address} placeholder='address' />
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Actions</th>
+                        <th>Add/ Remove actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {actionList.map(action => (
+                        <tr key={action._id} >
+                            <td>{action.name}</td>
+                            <td>
+                                <div className="deleteIcon"
+                                    onClick={() => { updateProjectActions(action) }}>
+                                    {
+                                        actionAssigned(action)
+                                            ? <RemoveCircleOutlineRoundedIcon />
+                                            : <AddCircleOutlineRoundedIcon />
+                                    }
+                                </div>
+                            </td>
+                        </tr>
+                    ))}
+                </tbody>
+            </table ><br />
         </form>
+        <button onClick={saveIdentifiedProject} className='btn btn-primary btn-sm'>Save</button><br /><br />
+        <button onClick={() => { setProjectComponentState('search') }} className='btn btn-primary btn-sm'>Back to projects</button><br /><br />
+
     </>
 )
 
-const selectStyle = {
-    height: '40 px'
-}
 
 ProjectForm.propTypes = {
-    projectInfo: PropTypes.object.isRequired,
-    actionItems: PropTypes.array.isRequired,
-    handleChange: PropTypes.func.isRequired,
-    handleActionChange: PropTypes.func.isRequired,
-    addAction: PropTypes.func.isRequired,
-    deleteAction: PropTypes.func.isRequired,
-    save: PropTypes.func.isRequired
+    identifiedProject: PropTypes.object.isRequired,
+    saveIdentifiedProject: PropTypes.func.isRequired,
+    setProjectComponentState: PropTypes.func.isRequired,
+    actionList: PropTypes.array.isRequired,
+    handleProjectChange: PropTypes.func.isRequired,
+    updateProjectActions: PropTypes.func.isRequired,
+    actionAssigned: PropTypes.func.isRequired
 };
 
 export default ProjectForm;

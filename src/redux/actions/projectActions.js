@@ -10,6 +10,10 @@ export const saveProjectSuccess = (project) => {
     return { type: types.saveProjectSuccess, project }
 }
 
+export const UPDATE_PROJECT_SUCCESS = (project) => {
+    return { type: types.UPDATE_PROJECT_SUCCESS, project }
+}
+
 export function loadProjects() {
     return function (dispatch) {
         return projectApi
@@ -28,6 +32,17 @@ export function saveProject(project) {
             .saveProject(project)
             .then(project => {
                 dispatch(saveProjectSuccess(project));
+            })
+            .catch(handleError)
+    };
+}
+
+export function updateProject(project) {
+    return function (dispatch) {
+        return projectApi
+            .saveProject(project)
+            .then(project => {
+                dispatch(UPDATE_PROJECT_SUCCESS(project));
             })
             .catch(handleError)
     };
