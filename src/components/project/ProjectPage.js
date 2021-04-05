@@ -53,15 +53,42 @@ const ProjectPage = ({ projects, actions, loadProjects, saveProject, updateProje
         setidentifiedProject(identifiedProject);
     }
 
-    const handleChange = (e) => {
-        let { name, value } = e.target;
-        setidentifiedProject({ ...identifiedProject, [name]: value });
-    }
-
     const saveIdentifiedProject = () => {
         (identifiedProject._id)
             ? updateProject({ ...identifiedProject })
             : saveProject({ ...identifiedProject })
+    }
+
+    const handleProjectChange = (e) => {
+        let { name, value } = e.target;
+        setidentifiedProject({ ...identifiedProject, [name]: value });
+    }
+
+    const actionAssigned = (action) => {
+        return (identifiedProject.actions.find((projectAction => projectAction._id == action._id))
+            ? true
+            : false
+        );
+    }
+
+    const updateProjectActions = (action) => {
+        if (identifiedProject.actions.find((projectAction => projectAction._id == action._id))) {
+            let updatedActions = identifiedProject.actions.filter(projectAction => projectAction._id !== action._id);
+            identifiedProject = {
+                ...identifiedProject, actions:
+                    [...updatedActions]
+            };
+            console.log('remove');
+        }
+        else {
+            identifiedProject = {
+                ...identifiedProject, actions:
+                    [...identifiedProject.actions, action]
+            }
+            console.log('add');
+
+        }
+        setidentifiedProject({ ...identifiedProject });
     }
 
     return (
@@ -86,11 +113,13 @@ const ProjectPage = ({ projects, actions, loadProjects, saveProject, updateProje
                     projectComponentState == 'edit' &&
                     <ProjectForm
                         identifiedProject={identifiedProject}
-                        handleChange={handleChange}
-                        saveIdentifiedProject={saveIdentifiedProject}
-                        setProjectComponentState={setProjectComponentState}
-                        actionList={actionList}
                         setidentifiedProject={setidentifiedProject}
+                        saveIdentifiedProject={saveIdentifiedProject}
+                        actionList={actionList}
+                        setProjectComponentState={setProjectComponentState}
+                        handleProjectChange={handleProjectChange}
+                        actionAssigned={actionAssigned}
+                        updateProjectActions={updateProjectActions}
                     />
                 }
             </div>
