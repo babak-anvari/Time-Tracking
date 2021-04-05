@@ -5,7 +5,7 @@ import ProjectInput from '../common/ProjectInput';
 const ProjectControl = ({ inputProject, projectList, handleChange }) => (
     <>
         <h4>Find project</h4>
-        <lable>Enter project name</lable><br />
+        <label>Enter project name</label><br />
         <ProjectInput
             projectList={projectList}
             Inputvalue={inputProject.projectNumber}

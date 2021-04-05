@@ -5,9 +5,9 @@ const ProjectForm = ({ projectInfo, actionItems, handleChange, handleActionChang
     <>
         <h3>Project information</h3>
         <form>
-            <lable>Project Name</lable><br />
+            <label>Project Name</label><br />
             <input onChange={handleChange} name={'number'} value={projectInfo.number} placeholder='Project Name' /><br /><br />
-            <lable>Project Address</lable><br />
+            <label>Project Address</label><br />
             <input onChange={handleChange} name={'address'} value={projectInfo.address} placeholder='address' /><br /><br />
             {projectInfo.actions && projectInfo.actions.length > 0 &&
                 <>
