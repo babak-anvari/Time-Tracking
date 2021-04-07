@@ -1,14 +1,35 @@
 import React from 'react';
 import PropTypes from "prop-types";
+import { InputGroup, FormControl } from "react-bootstrap";
 
 const ProjectForm = ({ projectInfo, actionItems, handleChange, handleActionChange, addAction, deleteAction, save }) => (
     <>
-        <h3>Project information</h3>
+        <h5>Project information</h5>
         <form>
-            <label>Project Name</label><br />
-            <input onChange={handleChange} name={'number'} value={projectInfo.number} placeholder='Project Name' /><br /><br />
-            <label>Project Address</label><br />
-            <input onChange={handleChange} name={'address'} value={projectInfo.address} placeholder='address' /><br /><br />
+            <div>
+                <InputGroup className="mb-3">
+                    <InputGroup.Prepend>
+                        <InputGroup.Text className="width-150">Name</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
+                        onChange={handleChange}
+                        name={'number'}
+                        value={projectInfo.number}
+                        placeholder='Project Name'
+                    />
+                </InputGroup>
+                <InputGroup className="mb-3">
+                    <InputGroup.Prepend>
+                        <InputGroup.Text className="width-150">Address</InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <FormControl
+                        onChange={handleChange}
+                        name={'address'}
+                        value={projectInfo.address}
+                        placeholder='address'
+                    />
+                </InputGroup>
+            </div>
             {projectInfo.actions && projectInfo.actions.length > 0 &&
                 <>
                     <select
@@ -53,12 +74,16 @@ const ProjectForm = ({ projectInfo, actionItems, handleChange, handleActionChang
                     </table>
                 </>
             }
-            {projectInfo.actions && projectInfo.actions.length == 0 &&
-                <label>Project actions are not set</label>
-            }
-            <button onClick={save} className='btn btn-primary btn-sm'>
-                {projectInfo._id ? 'Update Project Information' : 'Create New Project'}
-            </button>
+            <div>
+                {projectInfo.actions && projectInfo.actions.length == 0 &&
+                    <span>Project actions are not set</span>
+                }
+            </div>
+            <div className="margin-top-20">
+                <button onClick={save} className='btn btn-primary btn-sm'>
+                    {projectInfo._id ? 'Update' : 'Create New Project'}
+                </button>
+            </div>
         </form>
     </>
 )

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from 'react-redux';
-import { NavLink } from "react-router-dom";
+import { Navbar, Nav } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { userRenewLogin, userSignOut } from '../../redux/actions/userActions'
 import getToken from '../../utils/getToken';
@@ -11,19 +11,32 @@ const Header = ({ currentUser, userRenewLogin, userSignOut }) => {
         user ? userRenewLogin(user) : console.log('not logged in');
     }, [])
     return (
-        <nav>
-            <NavLink className='Nav_Link' activeClassName="Active_Nav_Link" to="/" exact>Home</NavLink>
-            <NavLink className='Nav_Link' activeClassName="Active_Nav_Link" to="/about" >About</NavLink>
-            <NavLink className='Nav_Link' activeClassName="Active_Nav_Link" to="/user">{currentUser._id ? 'User' : 'Sign in'}</NavLink>
-            {currentUser._id &&
-                <>
-                    <NavLink className='Nav_Link' activeClassName="Active_Nav_Link" to="/project">Project</NavLink>
-                    <NavLink className='Nav_Link' activeClassName="Active_Nav_Link" to="/action" >Action</NavLink>
-                    <NavLink className='Nav_Link' activeClassName="Active_Nav_Link" to="/timesheet" >Timesheet</NavLink>
-                    <NavLink className='Nav_Link' to="/user" onClick={userSignOut}>Sign out</NavLink>
-                </>
-            }
-        </nav>
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Navbar.Brand href="#home">Time Management Service</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav activeKey={location.pathname} className="mr-auto">
+                    <Nav.Link href="/">Home</Nav.Link>
+                    {/* <Nav.Link href="/about">About</Nav.Link> */}
+                    {currentUser._id &&
+                        <>
+                            <Nav.Link href="/user">User</Nav.Link>
+                            <Nav.Link href="/project">Project</Nav.Link>
+                            <Nav.Link href="/action">Action</Nav.Link>
+                            <Nav.Link href="/timesheet">Timesheet</Nav.Link>
+                        </>
+                    }
+                </Nav>
+                <Nav>
+                    {currentUser._id &&
+                        <Nav.Link onClick={userSignOut}>Sign out</Nav.Link>
+                    }
+                    {!currentUser._id &&
+                        <Nav.Link href="/user">Sign in</Nav.Link>
+                    }
+                </Nav>
+            </Navbar.Collapse>
+        </Navbar>
     );
 };
 

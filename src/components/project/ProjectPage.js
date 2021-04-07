@@ -92,30 +92,26 @@ const ProjectPage = ({ projects, actions, loadProjects, saveProject, loadActions
     }
 
     return (
-        <div className='backGroundColor'>
+        <div className='container'>
             <div>
-                <div className="row justify-content-start">
-                    <div className="col-4">
-                        <ProjectControl
-                            inputProject={inputProject}
-                            projectList={projectList}
-                            handleChange={handleProjectControlChange}
-                        />
-                    </div>
-                    <div className="col-4">
-                        {projectInfo.number &&
-                            <ProjectForm
-                                projectInfo={projectInfo}
-                                actionItems={actionItems}
-                                handleChange={handleProjectFormChange}
-                                handleActionChange={handleActionChange}
-                                addAction={addAction}
-                                deleteAction={deleteAction}
-                                save={save}
-                            />
-                        }
-                    </div>
-                </div>
+                <ProjectControl
+                    inputProject={inputProject}
+                    projectList={projectList}
+                    handleChange={handleProjectControlChange}
+                />
+            </div>
+            <div>
+                {projectInfo.number &&
+                    <ProjectForm
+                        projectInfo={projectInfo}
+                        actionItems={actionItems}
+                        handleChange={handleProjectFormChange}
+                        handleActionChange={handleActionChange}
+                        addAction={addAction}
+                        deleteAction={deleteAction}
+                        save={save}
+                    />
+                }
             </div>
         </div>
     )

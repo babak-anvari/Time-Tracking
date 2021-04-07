@@ -1,16 +1,21 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import ProjectInput from '../common/ProjectInput';
+import { InputGroup, FormControl } from "react-bootstrap";
 
 const ProjectControl = ({ inputProject, projectList, handleChange }) => (
     <>
-        <h4>Find project</h4>
-        <label>Enter project name</label><br />
-        <ProjectInput
-            projectList={projectList}
-            Inputvalue={inputProject.projectNumber}
-            handleChange={handleChange}
-        /><br />
+        <h4>Projects</h4>
+        <hr></hr>
+        <div className="margin-top-20">
+            <span className="margin-right-20">Search by Name:</span>
+            <ProjectInput
+                projectList={projectList}
+                Inputvalue={inputProject.projectNumber}
+                handleChange={handleChange}
+            />
+        </div>
+        <hr></hr>
     </>
 )
 
