@@ -99,11 +99,11 @@ function TimesheetPage({ timesheet, projects, actions, loadTimesheet, saveTimesh
     }
 
     return (
-        <div className='backGroundColor'>
+        <div className='container'>
             <TimesheetInformation
                 weekEnd={weekEnd}
                 getTimesheet={getTimesheet}
-            /><br /><br /><br />
+            />
             {weekEnd &&
                 <TimesheetTable
                     tasks={(tasks)}

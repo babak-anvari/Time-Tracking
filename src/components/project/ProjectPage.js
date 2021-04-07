@@ -92,7 +92,7 @@ const ProjectPage = ({ projects, actions, loadProjects, saveProject, updateProje
     }
 
     return (
-        <div className='backGroundColor'>
+        <div className='container'>
             <div>
                 {projectComponentState == 'search' &&
                     <ProjectSearch

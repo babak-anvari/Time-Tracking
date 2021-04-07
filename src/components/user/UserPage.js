@@ -52,7 +52,7 @@ const UserPage = ({ currentUser, userLogin, createUser, updateUser, userSignOut 
         updateUser(user);
     }
     return (
-        <div className='backGroundColor'>
+        <div className='container'>
             {!user._id && !state.newUser &&
                 <UserLogin
                     handleChange={handleChange}

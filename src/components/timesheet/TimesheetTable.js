@@ -9,7 +9,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 const TimesheetTable = ({ tasks, projectList, actionItems, addRow, deleteRow, saveTable, handleChange, findError }) => (
     <>
-        <button type='button' onClick={saveTable} className='btn btn-primary btn-sm'>Save timesheet</button><br /><br />
+        <button type='button' onClick={saveTable} className='btn btn-primary btn-sm margin-top-20'>Save</button><br /><br />
         <table>
             <thead>
                 <tr>
