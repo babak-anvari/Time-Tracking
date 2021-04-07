@@ -50,7 +50,7 @@ const ActionItems = ({ actions, loadActions, saveActions }) => {
     }
 
     return (
-        <div className='backGroundColor'>
+        <div className='container'>
             <ActionItemsTable
                 actionItems={actionItems}
                 addActionItem={addActionItem}
