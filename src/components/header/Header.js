@@ -13,7 +13,7 @@ const Header = ({ currentUser, userRenewLogin, userSignOut }) => {
     }, [])
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand href="/">Time Management Service</Navbar.Brand>
+            <Navbar.Brand as={Link} to="/">Time Management Service</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav activeKey={location.pathname} className="mr-auto">
@@ -32,7 +32,7 @@ const Header = ({ currentUser, userRenewLogin, userSignOut }) => {
                         <Nav.Link onClick={userSignOut}>Sign out</Nav.Link>
                     }
                     {!currentUser._id &&
-                        <Nav.Link href="/user">Sign in</Nav.Link>
+                        <Nav.Link as={Link} to="/user">Sign in</Nav.Link>
                     }
                 </Nav>
             </Navbar.Collapse>
