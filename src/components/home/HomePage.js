@@ -12,7 +12,7 @@ export const HomePage = () => (
             </p>
             <p>Click on the link below to navigate the implementation code and learn more about the installation steps: </p>
         </div>
-        <Link to={{ pathname: "https://github.com/babak-anvari/Time-Management-Software#readme" }} target="_blank" className='btn btn-primary btn-lg margin-top-20'>
+        <Link to={{ pathname: "https://github.com/babak-anvari/Time-Tracking#readme" }} target="_blank" className='btn btn-primary btn-lg margin-top-20'>
             Learn more on GitHub
         </Link>
     </div>
