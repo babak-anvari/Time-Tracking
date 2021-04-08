@@ -8,16 +8,11 @@ First, install the programs required to run the application:
 
 [Node.js](https://nodejs.org/en/download/)
 
-[Mongo.DB](https://docs.mongodb.com/manual/installation/)
-
-
 Next, clone this repository and install dependencies:
 
 `git clone https://github.com/babak-anvari/Time-Tracking`
 
 `npm install`
-
-Make sure MongoDB is running.
 
 Next, start the test environment with the following command:
 
