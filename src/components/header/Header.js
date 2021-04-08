@@ -4,6 +4,7 @@ import { Navbar, Nav } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { userRenewLogin, userSignOut } from '../../redux/actions/userActions'
 import getToken from '../../utils/getToken';
+import { Link } from 'react-router-dom'
 
 const Header = ({ currentUser, userRenewLogin, userSignOut }) => {
     useEffect(() => {
@@ -16,13 +17,13 @@ const Header = ({ currentUser, userRenewLogin, userSignOut }) => {
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav activeKey={location.pathname} className="mr-auto">
-                    <Nav.Link href="/">Home</Nav.Link>
+                    <Nav.Link as={Link} to="/">Home</Nav.Link>
                     {currentUser._id &&
                         <>
-                            <Nav.Link href="/user">User</Nav.Link>
-                            <Nav.Link href="/project">Project</Nav.Link>
-                            <Nav.Link href="/action">Action</Nav.Link>
-                            <Nav.Link href="/timesheet">Timesheet</Nav.Link>
+                            <Nav.Link as={Link} to="/user">User</Nav.Link>
+                            <Nav.Link as={Link} to="/project">Project</Nav.Link>
+                            <Nav.Link as={Link} to="/action">Action</Nav.Link>
+                            <Nav.Link as={Link} to="/timesheet">Timesheet</Nav.Link>
                         </>
                     }
                 </Nav>
