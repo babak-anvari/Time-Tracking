@@ -16,7 +16,7 @@ Next, clone this repository and install dependencies:
 
 Next, start the test environment with the following command:
 
-`npm run test`
+`npm run server`
 
 The application should open automatically. 
 
