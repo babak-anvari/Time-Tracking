@@ -14,8 +14,6 @@ Next, clone this repository and install dependencies:
 
 `npm install`
 
-Make sure MongoDB is running.
-
 Next, start the test environment with the following command:
 
 `npm run test`
