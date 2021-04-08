@@ -47,20 +47,40 @@ span.input-group-addon {
   color: #495056;
 }
 
+textarea{
+  min-height: 40px;
+  border: 1px solid #cdd4d9;
+  border-radius: 5px;
+  padding: 0px 5px;
+  color: #495056;
+}
+
+Table select{
+  min-height: 35px;
+}
+
+.width-100{
+  width: 100% !important;
+}
+
+.width-150{
+  width: 150px !important;
+}
+
 /* Timesheet table styling */
 
-table {
-  border: 2px solid rgb(3, 52, 94);
-  width: 100%;
-  border-collapse: separate;
+.status-active{
+  color: #28a745;
+  border-color: #28a745;
 }
 
-th, td {
-  font-size:0.75em;
-  padding: 15px;
-  text-align: left;
+Table .mb-3.input-group {
+  margin: 5px !important;
 }
 
+.table td, .table th{
+  vertical-align: middle;
+}
 .deleteIcon :hover{
   transform: scale(1.1);
 }

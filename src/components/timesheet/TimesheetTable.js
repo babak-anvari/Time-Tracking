@@ -6,11 +6,15 @@ import ProjectInput from '../common/ProjectInput';
 import HourInput from '../common/HourInput';
 import parseISO from 'date-fns/parseISO';
 import DeleteIcon from "@material-ui/icons/Delete";
+import { Table, InputGroup, Dropdown, DropdownButton } from "react-bootstrap";
 
 const TimesheetTable = ({ tasks, projectList, actionItems, addRow, deleteRow, saveTable, handleChange, findError }) => (
     <>
-        <button type='button' onClick={saveTable} className='btn btn-primary btn-sm margin-top-20'>Save</button><br /><br />
-        <table>
+        <hr></hr>
+        <div className="margin-top-20">
+            <button type='button' onClick={addRow} className='btn btn-primary btn-sm'>Add Task</button>
+        </div>
+        <Table striped bordered hover size="sm" className="margin-top-20">
             <thead>
                 <tr>
                     <th></th>
@@ -19,6 +23,7 @@ const TimesheetTable = ({ tasks, projectList, actionItems, addRow, deleteRow, sa
                     <th>Action</th>
                     <th>Hour</th>
                     <th>Detail</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,13 +31,15 @@ const TimesheetTable = ({ tasks, projectList, actionItems, addRow, deleteRow, sa
                     <tr key={task.id} >
                         <td>{task.rowNumber}</td>
                         <td>
-                            <DatePicker
-                                selected={parseISO(task.date)}
-                                closeOnScroll={true}
-                                onChange={(date) => handleChange(
-                                    { target: { name: 'date', value: date.toISOString() } }, task.id
-                                )}
-                            />
+                            <InputGroup className="mb-3">
+                                <DatePicker className="form-control width-100"
+                                    selected={parseISO(task.date)}
+                                    closeOnScroll={true}
+                                    onChange={(date) => handleChange(
+                                        { target: { name: 'date', value: date.toISOString() } }, task.id
+                                    )}
+                                />
+                            </InputGroup>
                         </td>
                         <td>
                             <ProjectInput
@@ -45,7 +52,7 @@ const TimesheetTable = ({ tasks, projectList, actionItems, addRow, deleteRow, sa
                         </td>
                         <td>
                             {task.projectId &&
-                                <select
+                                <select className="form-control width-150"
                                     style={{ height: '25px', padding: '0px' }}
                                     name='actionId'
                                     value={actionItems.find(action => action._id == task.actionId) &&
@@ -92,8 +99,10 @@ const TimesheetTable = ({ tasks, projectList, actionItems, addRow, deleteRow, sa
                     </tr>
                 ))}
             </tbody>
-        </table ><br />
-        <button type='button' onClick={addRow} className='btn btn-primary btn-sm'>Add Task</button>
+        </Table>
+        <div className="margin-top-50">
+            <button type='button' onClick={saveTable} className='btn btn-primary btn-sm'>Save</button><br /><br />
+        </div>
     </>
 )
 

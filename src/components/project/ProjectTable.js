@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from "prop-types";
 import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
+import { Table } from "react-bootstrap";
 
 const ProjectTable = ({ identifiedProjects, findProjectById, setProjectComponentState }) => (
     <>
-        <p>Project List</p><br />
-        <table>
+        <Table striped bordered hover size="sm">
             <thead>
                 <tr>
                     <th>Name</th>
@@ -36,7 +36,7 @@ const ProjectTable = ({ identifiedProjects, findProjectById, setProjectComponent
                     </tr>
                 ))}
             </tbody>
-        </table ><br />
+        </Table>
     </>
 )
 
