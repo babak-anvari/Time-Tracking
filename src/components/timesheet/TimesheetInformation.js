@@ -9,7 +9,7 @@ const TimesheetInformation = ({ weekEnd, getTimesheet }) => {
         <>
             <h4>TimeSheet Information</h4>
             <hr></hr>
-            <p>Select week end date</p>
+            <p>Select week ending date</p>
 
             <InputGroup className="mb-3">
                 <DatePicker className="form-control width-100"
