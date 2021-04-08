@@ -4,6 +4,7 @@
   "scripts": {
     "express.server": "nodemon --exec babel-node ./api/server.js",
     "webpack.server": "webpack-dev-server --config webpack.config.dev.js --port 3000",
+    "server": "concurrently --kill-others \"npm run express.server\" \"npm run webpack.server\"",
     "webpack.deploy.build": "webpack --config webpack.config.prod.js",
     "webpack.test.build": "webpack --config webpack.config.test.prod.js",
     "start": "babel-node api/server.js"
@@ -41,6 +42,7 @@
     "babel-eslint": "10.0.1",
     "babel-loader": "^8.0.5",
     "babel-preset-react-app": "7.0.2",
+    "concurrently": "^6.0.1",
     "css-loader": "2.1.1",
     "cssnano": "4.1.10",
     "enzyme": "3.9.0",
