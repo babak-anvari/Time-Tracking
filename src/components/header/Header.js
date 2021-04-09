@@ -29,7 +29,7 @@ const Header = ({ currentUser, userRenewLogin, userSignOut }) => {
                 </Nav>
                 <Nav>
                     {currentUser._id &&
-                        <Nav.Link onClick={userSignOut}>Sign out</Nav.Link>
+                        <Nav.Link as={Link} to="/user" onClick={userSignOut}>Sign out</Nav.Link>
                     }
                     {!currentUser._id &&
                         <Nav.Link as={Link} to="/user">Sign in</Nav.Link>
