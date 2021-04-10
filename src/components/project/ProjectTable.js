@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import VisibilityOutlinedIcon from '@material-ui/icons/VisibilityOutlined';
+import AssessmentOutlinedIcon from '@material-ui/icons/AssessmentOutlined';
 import EditRoundedIcon from '@material-ui/icons/EditRounded';
 import { Table } from "react-bootstrap";
+import { Link } from 'react-router-dom'
 
 const ProjectTable = ({ identifiedProjects, findProjectById, setProjectComponentState }) => (
     <>
@@ -23,7 +24,11 @@ const ProjectTable = ({ identifiedProjects, findProjectById, setProjectComponent
                         <td>Active</td>
                         <td>{project.address}</td>
                         <td>
-                            <div className="deleteIcon" onClick={() => { }}><VisibilityOutlinedIcon /></div>
+                            <div className="deleteIcon" onClick={() => { }}>
+                                <Link to={`/project/${project._id}`}>
+                                    <AssessmentOutlinedIcon />
+                                </Link>
+                            </div>
                         </td>
                         <td>
                             <div className="deleteIcon" onClick={() => {

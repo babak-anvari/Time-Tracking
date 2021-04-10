@@ -7,16 +7,18 @@ import TimesheetPage from './timesheet/TimesheetPage';
 import UserPage from './user/UserPage';
 import ProjectPage from './project/ProjectPage';
 import ActionItems from './actions/ActionItems';
+import ProjectReportPage from './project/ProjectReportPage';
 
 const App = () => (
     <div className='container-fluid'>
         <Header />
         <Switch>
-            <Route exact path='/' component={HomePage} />
+            <Route path='/' exact component={HomePage} />
             <Route path='/user' component={UserPage} />
-            <Route path='/project' component={ProjectPage} />
             <Route path='/timesheet' component={TimesheetPage} />
             <Route path='/action' component={ActionItems} />
+            <Route path='/project' exact component={ProjectPage} />
+            <Route path='/project/:id' component={ProjectReportPage} />
             <Route component={PageNotFound} />
         </Switch>
     </div>
