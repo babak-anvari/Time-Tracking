@@ -67,6 +67,14 @@ Table select{
   width: 150px !important;
 }
 
+.padding-none{
+  padding:0;
+}
+
+.text-align-end{
+  text-align:end;
+}
+
 /* Timesheet table styling */
 
 .status-active{

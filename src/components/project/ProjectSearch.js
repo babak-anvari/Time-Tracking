@@ -4,7 +4,6 @@ import { InputGroup, FormControl } from "react-bootstrap";
 
 const ProjectSearch = ({ searchKeyword, filterProjectsByName }) => (
     <>
-        <h4>Projects</h4>
         <InputGroup className="mb-3">
             <FormControl
                 onChange={filterProjectsByName}
@@ -13,7 +12,6 @@ const ProjectSearch = ({ searchKeyword, filterProjectsByName }) => (
                 placeholder='Search Project Name'
             />
         </InputGroup>
-        <hr></hr>
     </>
 )
 
