@@ -6,6 +6,7 @@ import ProjectTable from './ProjectTable';
 import ProjectForm from './ProjectForm';
 import { loadProjects, saveProject, updateProject } from '../../redux/actions/projectActions';
 import { loadActions } from '../../redux/actions/actionItemsActions';
+import { Col, Row, Container } from "react-bootstrap";
 
 const ProjectPage = ({ projects, actions, loadProjects, saveProject, updateProject, loadActions }) => {
 
@@ -93,36 +94,61 @@ const ProjectPage = ({ projects, actions, loadProjects, saveProject, updateProje
 
     return (
         <div className='container'>
-            <div>
-                {projectComponentState == 'search' &&
-                    <ProjectSearch
-                        searchKeyword={searchKeyword}
-                        filterProjectsByName={filterProjectsByName}
-                    />
-                }
-                {
-                    identifiedProjects.length > 0 &&
-                    projectComponentState == 'search' &&
-                    <ProjectTable
-                        identifiedProjects={identifiedProjects}
-                        findProjectById={findProjectById}
-                        setProjectComponentState={setProjectComponentState}
-                    />
-                }
-                {
-                    projectComponentState == 'edit' &&
-                    <ProjectForm
-                        identifiedProject={identifiedProject}
-                        setidentifiedProject={setidentifiedProject}
-                        saveIdentifiedProject={saveIdentifiedProject}
-                        actionList={actionList}
-                        setProjectComponentState={setProjectComponentState}
-                        handleProjectChange={handleProjectChange}
-                        actionAssigned={actionAssigned}
-                        updateProjectActions={updateProjectActions}
-                    />
-                }
-            </div>
+            {projectComponentState == 'search' &&
+                <>
+                    <h4>Projects</h4>
+                    <Container>
+                        <Row>
+                            <Col className='padding-none'>
+                                {projectComponentState == 'search' &&
+                                    <ProjectSearch
+                                        searchKeyword={searchKeyword}
+                                        filterProjectsByName={filterProjectsByName}
+                                    />
+                                }
+                            </Col>
+                            <Col xs lg="2" className='padding-none text-align-end'>
+                                {
+                                    projectComponentState == 'search' &&
+                                    <button
+                                        type='button'
+                                        className='btn btn-primary btn-sm'
+                                        onClick={() => {
+                                            setidentifiedProject({ number: '', address: '', actions: [] });
+                                            setProjectComponentState('edit');
+                                        }}
+                                    >
+                                        Create
+                                </button>
+                                }
+                            </Col>
+                        </Row>
+                    </Container>
+                    <hr></hr>
+                </>
+            }
+            {
+                identifiedProjects.length > 0 &&
+                projectComponentState == 'search' &&
+                <ProjectTable
+                    identifiedProjects={identifiedProjects}
+                    findProjectById={findProjectById}
+                    setProjectComponentState={setProjectComponentState}
+                />
+            }
+            {
+                projectComponentState == 'edit' &&
+                <ProjectForm
+                    identifiedProject={identifiedProject}
+                    setidentifiedProject={setidentifiedProject}
+                    saveIdentifiedProject={saveIdentifiedProject}
+                    actionList={actionList}
+                    setProjectComponentState={setProjectComponentState}
+                    handleProjectChange={handleProjectChange}
+                    actionAssigned={actionAssigned}
+                    updateProjectActions={updateProjectActions}
+                />
+            }
         </div>
     )
 }
